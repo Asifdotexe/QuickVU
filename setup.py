@@ -10,6 +10,7 @@ setup(
         'seaborn',
         'matplotlib',
         'scikit-learn',
+        'streamlit'
     ],
     classifiers=[
         'Programming Language :: Python :: 3',
