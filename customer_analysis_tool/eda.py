@@ -40,8 +40,10 @@ def plot_correlation_matrix(df: pd.DataFrame):
     
     :returns: Matplotlib figure object
     """
-    corr = df.corr()
+    numeric_df = df.select_dtypes(include=['number'])
+    corr = numeric_df.corr()
     fig, ax = plt.subplots()
-    sns.heatmap(corr, annot=True, cmap='coolwarm', ax=ax)
+    plt.figure(figsize=(12, 8))
+    sns.heatmap(corr, annot=False, cmap='coolwarm', ax=ax, square=True, center=0)
     ax.set_title('Correlation Matrix')
     return fig

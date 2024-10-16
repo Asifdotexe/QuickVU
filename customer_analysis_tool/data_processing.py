@@ -24,9 +24,9 @@ def preprocess_data(
         }
 
     # Convert purchase date to datetime
-    df[column_mapping['purchase_date']] = pd.to_datetime(
-        df[column_mapping['purchase_date']], format=Config.DATE_FORMAT, errors='coerce'
-    )
+    # df[column_mapping['purchase_date']] = pd.to_datetime(
+    #     df[column_mapping['purchase_date']], format=Config.DATE_FORMAT, errors='coerce'
+    # )
 
     # Handle missing values
     for column in df.columns:
