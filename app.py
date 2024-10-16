@@ -17,7 +17,15 @@ if uploaded_file:
     st.write("## Dataset Preview")
     st.write(df.head())
     
-    # Step 3: Preprocessing
+    # Step 3: Column Selection
+    st.sidebar.header("Select Columns (Optional)")
+    customer_id = st.sidebar.selectbox('Select Customer ID Column (Optional)', [''] + list(df.columns))
+    sales_amount = st.sidebar.selectbox('Select Sales Amount Column (Optional)', [''] + list(df.columns))
+    purchase_date = st.sidebar.selectbox('Select Purchase Date Column (Optional)', [''] + list(df.columns))
+    product_id = st.sidebar.selectbox('Select Product ID Column (Optional)', [''] + list(df.columns))
+    marketing_spend = st.sidebar.selectbox('Select Marketing Spend Column (Optional)', [''] + list(df.columns))
+
+    # Step 4: Preprocessing Options
     st.sidebar.header("Preprocessing Options")
     missing_value_option = st.sidebar.selectbox(
         "How do you want to handle missing values?",
@@ -36,7 +44,7 @@ if uploaded_file:
     df_clean = data_processing.preprocess_data(df)
     st.write(df_clean.head())
     
-    # Step 4: Exploratory Data Analysis
+    # Step 5: Exploratory Data Analysis
     st.sidebar.header("Exploratory Data Analysis")
     if st.sidebar.checkbox("Show Summary Statistics"):
         st.write("## Summary Statistics")
@@ -44,35 +52,47 @@ if uploaded_file:
     
     if st.sidebar.checkbox("Plot Sales Trends"):
         st.write("## Sales Trends Over Time")
-        fig = eda.plot_sales_trends(df_clean, Config.PURCHASE_DATE, Config.SALES_AMOUNT)
-        st.pyplot(fig)
+        if purchase_date and sales_amount:
+            fig = eda.plot_sales_trends(df_clean, purchase_date, sales_amount)
+            st.pyplot(fig)
+        else:
+            st.warning("Please select both Purchase Date and Sales Amount columns for this analysis.")
     
     if st.sidebar.checkbox("Show Correlation Matrix"):
         st.write("## Correlation Matrix")
         fig = eda.plot_correlation_matrix(df_clean)
         st.pyplot(fig)
 
-    # Step 5: Visualization
+    # Step 6: Visualization
     st.sidebar.header("Data Visualization")
     if st.sidebar.checkbox("Plot Sales by Product"):
         st.write("## Sales by Product")
-        fig = visualization.plot_sales_by_product(df_clean, Config.PRODUCT_ID, Config.SALES_AMOUNT)
-        st.pyplot(fig)
+        if product_id and sales_amount:
+            fig = visualization.plot_sales_by_product(df_clean, product_id, sales_amount)
+            st.pyplot(fig)
+        else:
+            st.warning("Please select both Product ID and Sales Amount columns for this analysis.")
     
     if st.sidebar.checkbox("Customer Demographics"):
         st.write("## Customer Demographics")
-        fig = visualization.plot_customer_demographics(df_clean, Config.CUSTOMER_ID, Config.SALES_AMOUNT)
-        st.pyplot(fig)
+        if customer_id and sales_amount:
+            fig = visualization.plot_customer_demographics(df_clean, customer_id, sales_amount)
+            st.pyplot(fig)
+        else:
+            st.warning("Please select both Customer ID and Sales Amount columns for this analysis.")
 
-    # Step 6: Predictive Modeling (Optional)
+    # Step 7: Predictive Modeling (Optional)
     st.sidebar.header("Predictive Modeling (Optional)")
     if st.sidebar.checkbox("Build Sales Forecast Model"):
         st.write("## Sales Forecast Model")
-        feature_column = st.sidebar.selectbox("Select Feature", df_clean.columns)
-        target_column = Config.SALES_AMOUNT
+        feature_column = st.sidebar.selectbox("Select Feature (Optional)", df_clean.columns)
+        target_column = sales_amount if sales_amount else st.sidebar.selectbox("Select Target Column (Sales Amount)", df_clean.columns)
 
-        model, metrics = modeling.build_sales_forecast_model(df_clean, [feature_column], target_column)
-        st.write(f"Mean Squared Error (MSE): {metrics['mse']}")
+        if feature_column and target_column:
+            model, metrics = modeling.build_sales_forecast_model(df_clean, [feature_column], target_column)
+            st.write(f"Mean Squared Error (MSE): {metrics['mse']}")
+        else:
+            st.warning("Please select both Feature and Target columns for the model.")
 
 # Footer
 st.sidebar.write("---")
