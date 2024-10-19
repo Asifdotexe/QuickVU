@@ -28,9 +28,12 @@ def plot_sales_trends(
     :returns: Matplotlib figure object
     """
     fig, ax = plt.subplots()
-    df.groupby(df[date_column].dt.to_period('M'))[sales_column].sum().plot(ax=ax)
+    df.groupby(date_column)[sales_column].sum().plot(ax=ax)  # Group by date_column without .dt
     ax.set_title('Sales Trends Over Time')
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Total Sales Amount')
     return fig
+
 
 def plot_correlation_matrix(df: pd.DataFrame):
     """
