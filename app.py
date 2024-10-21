@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 from customer_analysis_tool.config import Config
 from customer_analysis_tool import data_processing, eda, visualization
+from customer_analysis_tool import gemini
 
 sns.set_style('whitegrid')
 
@@ -53,7 +54,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Streamlit App Title and Description
-st.markdown('<h1 class="main-header">Customer Sales & Marketing Analysis Tool</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="main-header">QuickView: Adhoc data analysis tool</h1>', unsafe_allow_html=True)
 st.markdown('<p class="instructions">This tool allows you to upload, preprocess, and analyze your sales and marketing data with ease. Gain insights from visualizations, summary statistics, and other exploratory data analysis methods.</p>', unsafe_allow_html=True)
 
 # Data Upload
@@ -107,29 +108,37 @@ if uploaded_file:
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
     # Step 5: Exploratory Data Analysis
-    # with st.expander("Exploratory Data Analysis"):
     st.sidebar.markdown('<h3 class="side-header">Exploratory Data Analysis</h3>', unsafe_allow_html=True)
     
     if st.sidebar.checkbox("Show Summary Statistics", help="Display summary statistics such as mean, median, and standard deviation for numerical columns."):
         st.markdown('<h2 class="sub-header">Summary Statistics</h2>', unsafe_allow_html=True)
         st.write(eda.generate_summary_statistics(df_clean))
 
+    # Add option to explain correlation matrix
     if st.sidebar.checkbox("Show Correlation Matrix", help="Display a correlation matrix for selected numerical columns."):
         st.markdown('<h2 class="sub-header">Correlation Matrix</h2>', unsafe_allow_html=True)
         if selected_numerical:
             df_numerical = df_clean[selected_numerical]
             correlation_matrix = df_numerical.corr()
+            
+            # Plot correlation matrix
             fig = plt.figure(figsize=(10, 8))
             sns.heatmap(correlation_matrix, annot=True, fmt=".2f", cmap='coolwarm', square=True)
             plt.title('Correlation Matrix of Selected Numerical Columns')
             st.pyplot(fig)
+
+            # Button to explain the chart
+            if st.button("Explain Correlation Matrix"):
+                corr_matrix_str = correlation_matrix.to_string()  # Convert the correlation matrix to string
+                explanation = gemini.explain_correlation_matrix(corr_matrix_str)  # Call the explanation function
+                st.markdown('<h2 class="sub-header">Explanation</h2>', unsafe_allow_html=True)
+                st.write(explanation)
         else:
             st.markdown('<p class="warning-message">Please select at least one Numerical column to show the correlation matrix.</p>', unsafe_allow_html=True)
 
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
     # Step 6: Visualization
-    # with st.expander("Data Visualization"):
     st.sidebar.markdown('<h3 class="side-header">Data Visualization</h3>', unsafe_allow_html=True)
     
     if st.sidebar.checkbox("Plot Sales by Product", help="Plot a bar chart to visualize sales by product."):
@@ -166,34 +175,6 @@ if uploaded_file:
         else:
             st.warning("Please ensure your dataset contains both Date/Time and Numerical columns for this analysis.")
 
-
-
-    # Plotly Interactive Sales by Product
-    # if st.sidebar.checkbox("Interactive Plot: Sales by Product"):
-    #     st.markdown('<h2 class="sub-header">Interactive Sales by Product</h2>', unsafe_allow_html=True)
-    #     if selected_categorical and selected_numerical:
-    #         product_col = st.sidebar.selectbox("Select Product Column", selected_categorical, key="product_col_interactive")
-    #         sales_col = st.sidebar.selectbox("Select Sales Amount Column", selected_numerical, key="sales_col_interactive")
-    #         fig = px.bar(df_clean, x=product_col, y=sales_col, title="Interactive Sales by Product")
-    #         st.plotly_chart(fig)
-
-    
-    # Optional: Add interaction with DataHorse (Commented out)
-    # st.sidebar.write("---")
-    # st.sidebar.write("DataHorse Interaction")
-    # chart_prompt = st.sidebar.checkbox("Prompt to Chart")
-    
-    # if chart_prompt:
-    #     description_prompt = st.text_input("Describe the data analysis you'd like to perform (e.g., summarize data, convert categorical to numeric, etc.)")
-        
-    #     if st.button("Analyze with DataHorse"):
-    #         try:
-    #             df_dh = datahorse.read(uploaded_file)
-    #             response = df_dh.chat(description_prompt, seed=int, cache_req=True)
-    #             st.write("### DataHorse Response")
-    #             st.pyplot(response)
-    #         except Exception as e:
-    #             st.error(f"An error occurred: {e}")
 
 # Footer
 st.sidebar.write("---")
