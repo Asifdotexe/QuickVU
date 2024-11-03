@@ -54,8 +54,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Streamlit App Title and Description
-st.markdown('<h1 class="main-header">QuickView: Adhoc data analysis tool</h1>', unsafe_allow_html=True)
-st.markdown('<p class="instructions">This tool allows you to upload, preprocess, and analyze your sales and marketing data with ease. Gain insights from visualizations, summary statistics, and other exploratory data analysis methods.</p>', unsafe_allow_html=True)
+st.header("QuickVU: Adhoc data analysis tool")
+st.markdown("Quick VU stands for Quick Visual Understanding. It is a no-code data visualization and analysis tool designed to help users effortlessly explore and understand their datasets. Built with Streamlit, Quick VU provides an intuitive interface for uploading, preprocessing, and analyzing data, making it accessible to everyone regardless of technical expertise")
+st.divider()
 
 # Data Upload
 st.sidebar.markdown('<h3 class="side-header">Upload your Dataset</h3>', unsafe_allow_html=True)
@@ -117,26 +118,31 @@ if uploaded_file:
     # Add option to explain correlation matrix
     if st.sidebar.checkbox("Show Correlation Matrix", help="Display a correlation matrix for selected numerical columns."):
         st.markdown('<h2 class="sub-header">Correlation Matrix</h2>', unsafe_allow_html=True)
+        
         if selected_numerical:
             df_numerical = df_clean[selected_numerical]
             correlation_matrix = df_numerical.corr()
-            
+
             # Plot correlation matrix
-            fig = plt.figure(figsize=(10, 8))
-            sns.heatmap(correlation_matrix, annot=True, fmt=".2f", cmap='coolwarm', square=True)
-            plt.title('Correlation Matrix of Selected Numerical Columns')
+            fig, ax = plt.subplots(figsize=(10, 8))
+            sns.heatmap(correlation_matrix, annot=True, fmt=".2f", cmap='coolwarm', square=True, cbar_kws={"shrink": .8}, ax=ax)
+            ax.set_title('Correlation Matrix of Selected Numerical Columns', fontsize=16, fontweight='bold', color="#333")
             st.pyplot(fig)
 
-            # Button to explain the chart
-            if st.button("Explain Correlation Matrix"):
-                corr_matrix_str = correlation_matrix.to_string()  # Convert the correlation matrix to string
-                explanation = gemini.explain_correlation_matrix(corr_matrix_str)  # Call the explanation function
-                st.markdown('<h2 class="sub-header">Explanation</h2>', unsafe_allow_html=True)
-                st.write(explanation)
+            # Explanation Section
+            with st.expander("Need Help Understanding the Correlation Matrix?"):
+                if st.button("Explain Correlation Matrix"):
+                    corr_matrix_str = correlation_matrix.to_string()  # Convert the correlation matrix to string
+                    explanation = gemini.explain_correlation_matrix(corr_matrix_str)  # Call the explanation function
+                    st.markdown('<h2 class="sub-header">Explanation</h2>', unsafe_allow_html=True)
+                    st.info(explanation, icon="💡")
         else:
-            st.markdown('<p class="warning-message">Please select at least one Numerical column to show the correlation matrix.</p>', unsafe_allow_html=True)
+            st.markdown(
+                '<p class="warning-message">Please select at least one numerical column to view the correlation matrix.</p>', 
+                unsafe_allow_html=True
+            )
 
-    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
     # Step 6: Visualization
     st.sidebar.markdown('<h3 class="side-header">Data Visualization</h3>', unsafe_allow_html=True)
