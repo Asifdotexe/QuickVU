@@ -1,3 +1,5 @@
+![Logo](https://github.com/Asifdotexe/QuickVU/blob/main/dataset/logo.png)
+
 # Quick VU
 
 **Quick VU** stands for **Quick Visual Understanding**. It is a no-code data visualization and analysis tool designed to help users effortlessly explore and understand their datasets. Built with Streamlit, Quick VU provides an intuitive interface for uploading, preprocessing, and analyzing data, making it accessible to everyone regardless of technical expertise.
