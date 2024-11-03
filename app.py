@@ -4,9 +4,9 @@ import seaborn as sns
 import streamlit as st
 import matplotlib.pyplot as plt
 
-from customer_analysis_tool.config import Config
-from customer_analysis_tool import data_processing, eda, visualization
-from customer_analysis_tool import gemini
+from quickvu.config import Config
+from quickvu import data_processing, eda, visualization
+from quickvu import gemini
 
 sns.set_style('whitegrid')
 
@@ -126,7 +126,8 @@ if uploaded_file:
             with st.expander("Need Help Understanding the Correlation Matrix?"):
                 if st.button("Explain Correlation Matrix"):
                     corr_matrix_str = correlation_matrix.to_string()  # Convert the correlation matrix to string
-                    explanation = gemini.explain_correlation_matrix(corr_matrix_str)  # Call the explanation function
+                    with st.spinner("Generating explanation..."):
+                        explanation = gemini.explain_correlation_matrix(corr_matrix_str)
                     st.markdown('<h2 class="sub-header">Explanation</h2>', unsafe_allow_html=True)
                     st.info(explanation, icon="💡")
         else:

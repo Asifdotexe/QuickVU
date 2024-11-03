@@ -1,9 +1,9 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='customer_analysis_tool',
+    name='quickvu',
     version='0.1.0',
-    description='A reusable tool for customer sales and marketing data analysis',
+    description='A reusable tool for adhoc data analysis',
     packages=find_packages(),
     install_requires=[
         'pandas',
