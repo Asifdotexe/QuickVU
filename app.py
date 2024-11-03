@@ -10,42 +10,41 @@ from customer_analysis_tool import gemini
 
 sns.set_style('whitegrid')
 
-# Custom CSS for modern and consistent styling
 st.markdown("""
     <style>
     body {
-        background-color: #F5F5F5;
+        background-color: #FFFFFF;
     }
     .main-header { 
-        color: #FFFFFF; 
+        color: #0b78ee; 
         font-size: 34px; 
         font-weight: 700;
         text-align: left;
         margin-bottom: 20px;
     }
     .sub-header { 
-        color: #FFFFFF;
+        color: #0b78ee;
         font-size: 24px; 
         font-weight: 600; 
         margin: 20px 0;
     }
     .side-header {
-        color: #D84315;
+        color: #0b78ee;
         font-size: 18px;
         font-weight: bold;
         margin-bottom: 10px;
     }
     .section-divider {
-        border-top: 2px solid #B0BEC5;
+        border-top: 2px solid #0b78ee;
         margin: 30px 0;
     }
     .instructions {
         font-size: 16px;
-        color: #666;
+        color: #0b78ee;
         margin-bottom: 10px;
     }
     .warning-message {
-        color: #FF7043;
+        color: #0b78ee;
         font-size: 16px;
         font-weight: 500;
         margin: 10px 0;
@@ -53,31 +52,30 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Streamlit App Title and Description
-st.header("QuickVU: Adhoc data analysis tool")
-st.markdown("Quick VU stands for Quick Visual Understanding. It is a no-code data visualization and analysis tool designed to help users effortlessly explore and understand their datasets. Built with Streamlit, Quick VU provides an intuitive interface for uploading, preprocessing, and analyzing data, making it accessible to everyone regardless of technical expertise")
-st.divider()
+st.markdown('<h1 class="main-header">QuickVU: Adhoc Data Analysis Tool</h1>', unsafe_allow_html=True)
+st.markdown("""
+Quick VU (Quick Visual Understanding) is a no-code data visualization and analysis tool. Designed with simplicity in mind, 
+Quick VU helps users explore datasets with ease. Just upload your data, select your analysis options, and let Quick VU guide you 
+through insights and visualizations.
+""")
 
-# Data Upload
+st.sidebar.image('./dataset/logo.png', use_column_width=True)
+
+
 st.sidebar.markdown('<h3 class="side-header">Upload your Dataset</h3>', unsafe_allow_html=True)
 uploaded_file = st.sidebar.file_uploader("Choose a CSV file", type=["csv"], help="Upload your dataset in CSV format for analysis.")
 
 if uploaded_file:
-    # Load the dataset
     df = pd.read_csv(uploaded_file)
     st.markdown('<h2 class="sub-header">Dataset Preview</h2>', unsafe_allow_html=True)
-    st.write(df.head())
+    st.write(df.head(10))
     
-    # Step 4: Dynamically get column names and their types
     columns = df.columns.tolist()
     column_types = df.dtypes
 
-    # Separate columns by type
     numerical_columns = df.select_dtypes(include=['float64', 'int64']).columns.tolist()
     categorical_columns = df.select_dtypes(include=['object', 'category']).columns.tolist()
 
-    # Let user select columns for analysis
-    # Adding tooltips
     st.sidebar.markdown('<h3 class="side-header">Select Columns for Analysis</h3>', unsafe_allow_html=True)
     selected_categorical = st.sidebar.multiselect("Select Categorical Columns", categorical_columns, help="Choose columns with categorical data like 'Product Type', 'Category', etc.")
     selected_numerical = st.sidebar.multiselect("Select Numerical Columns", numerical_columns, help="Select columns with numerical data like 'Sales Amount', 'Profit', etc.")
@@ -86,7 +84,6 @@ if uploaded_file:
     # Convert integer columns to datetime
     df = data_processing.convert_int_to_datetime(df, selected_datetime)
 
-    # Step 4: Preprocessing Options
     st.sidebar.markdown('<h3 class="side-header">Preprocessing Options</h3>', unsafe_allow_html=True)
     missing_value_option = st.sidebar.selectbox(
         "How do you want to handle missing values?",
@@ -100,22 +97,19 @@ if uploaded_file:
         Config.FILL_MISSING_METHOD = 'median'
     else:
         Config.FILL_MISSING_METHOD = 'drop'
-    
-    # Apply preprocessing
+
     st.markdown('<h2 class="sub-header">Preprocessed Dataset</h2>', unsafe_allow_html=True)
     df_clean = data_processing.preprocess_data(df)
     st.write(df_clean.head())
 
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
-    # Step 5: Exploratory Data Analysis
     st.sidebar.markdown('<h3 class="side-header">Exploratory Data Analysis</h3>', unsafe_allow_html=True)
     
     if st.sidebar.checkbox("Show Summary Statistics", help="Display summary statistics such as mean, median, and standard deviation for numerical columns."):
         st.markdown('<h2 class="sub-header">Summary Statistics</h2>', unsafe_allow_html=True)
         st.write(eda.generate_summary_statistics(df_clean))
 
-    # Add option to explain correlation matrix
     if st.sidebar.checkbox("Show Correlation Matrix", help="Display a correlation matrix for selected numerical columns."):
         st.markdown('<h2 class="sub-header">Correlation Matrix</h2>', unsafe_allow_html=True)
         
@@ -123,7 +117,6 @@ if uploaded_file:
             df_numerical = df_clean[selected_numerical]
             correlation_matrix = df_numerical.corr()
 
-            # Plot correlation matrix
             fig, ax = plt.subplots(figsize=(10, 8))
             sns.heatmap(correlation_matrix, annot=True, fmt=".2f", cmap='coolwarm', square=True, cbar_kws={"shrink": .8}, ax=ax)
             ax.set_title('Correlation Matrix of Selected Numerical Columns', fontsize=16, fontweight='bold', color="#333")
