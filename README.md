@@ -58,19 +58,32 @@ The goal of **Quick VU** is to simplify data exploration by offering a user-frie
     cd quick-vu
     ```
 
+2. **Create a conda envirioment**
+    Assuming you have ananconda installed on your system
+    ```bash
+    conda create -name quickvu python=3.12
+    conda activate quickvu
+    ```
+
 2. **Install Dependencies**
     Ensure you have Python installed. Then, install the required packages:
     ```bash
     pip install -r requirements.txt
     ```
 
-3. **Run the Application**
+3. **Install Google API SDK**
+    The Python SDK for the Gemini API is contained in the google-generativeai package. Install the dependency using pip:
+    ```bash
+    pip install -q -U google-generativeai
+    ```
+
+4. **Run the Application**
     Start the Streamlit app:
     ```bash
     streamlit run app.py
     ```
 
-4. **Use Quick VU**
+5. **Use Quick VU**
     - Open the provided local URL in your browser.
     - Upload your CSV dataset and start exploring your data!
 
