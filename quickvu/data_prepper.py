@@ -157,3 +157,15 @@ def clean_text_data(
         dataframe[columns] = dataframe[columns].str.strip()\
                                 .str.replace(r'[^a-zA-Z0-9\s]', '', regex=True)
     return dataframe
+
+def remove_duplicates(dataframe: pd.DataFrame) -> pd.DataFrame:
+    """Remove duplicate rows from a DataFrame.
+    
+    :param dataframe: The DataFrame to remove duplicates from.
+    :type dataframe: pd.DataFrame
+    
+    :return: DataFrame with duplicate rows removed.
+    :rtype: pd.DataFrame
+    """
+    dataframe.drop_duplicates(inplace=True)
+    return dataframe
