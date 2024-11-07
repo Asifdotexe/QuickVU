@@ -138,3 +138,22 @@ def detech_outliers(
     # adding the outliers into dataframe to create flags
     dataframe["outliers"] = outliers.any(axis=1)
     return dataframe
+
+def clean_text_data(
+        dataframe: pd.DataFrame, 
+        text_columns: list
+    ) -> pd.DataFrame:
+    """Clean text columns by removing extra spaces and non-alphanumeric characters.
+    
+    :param dataframe: The DataFrame containing text columns.
+    :type dataframe: pd.DataFrame
+    :param text_columns: List of columns to clean.
+    :type text_columns: list
+    
+    :return: DataFrame with cleaned text data.
+    :rtype: pd.DataFrame
+    """
+    for columns in text_columns:
+        dataframe[columns] = dataframe[columns].str.strip()\
+                                .str.replace(r'[^a-zA-Z0-9\s]', '', regex=True)
+    return dataframe
