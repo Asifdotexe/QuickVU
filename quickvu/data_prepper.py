@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from scipy.stats import zscore
 
 def get_data_overview(dataframe: pd.DataFrame) -> dict:
     """Get an overview of the data including basic information and sample rows.
@@ -84,27 +85,24 @@ def detech_outliers(
     :return: DataFrame with outliers flagged.
     :rtype: pandas.DataFrame
     """
-    #NOTE: This part of the code performs the outlier detection using IQR Method
-    """
-    Interquartile Range (IQR) is a statistical measure used to identify outliers in a dataset.
-    It is the range between the 1st quartile (Q1) and the 3rd quartile (Q3), where:
+    # Interquartile Range (IQR) is a statistical measure used to identify outliers in a dataset.
+    # It is the range between the 1st quartile (Q1) and the 3rd quartile (Q3), where:
     
-    - Q1 (the 1st quartile) is the value below which 25% of the data falls.
-    - Q3 (the 3rd quartile) is the value below which 75% of the data falls.
+    # - Q1 (the 1st quartile) is the value below which 25% of the data falls.
+    # - Q3 (the 3rd quartile) is the value below which 75% of the data falls.
     
-    The IQR is calculated as: IQR = Q3 - Q1
+    # The IQR is calculated as: IQR = Q3 - Q1
     
-    Outliers are considered any data points that fall below: 
-    - Lower bound = Q1 - 1.5 * IQR
-    - Upper bound = Q3 + 1.5 * IQR
+    # Outliers are considered any data points that fall below: 
+    # - Lower bound = Q1 - 1.5 * IQR
+    # - Upper bound = Q3 + 1.5 * IQR
     
-    Here is a basic diagram of the IQR:
+    # Here is a basic diagram of the IQR:
     
-          |---------|---------|---------|---------|---------|
-     ---- Q1      Median    Q3       Upper Bound    Lower Bound
+    #       |---------|---------|---------|---------|---------|
+    #  ---- Q1      Median    Q3       Upper Bound    Lower Bound
     
-    Anything outside the "lower bound" and "upper bound" are considered outliers
-    """
+    # Anything outside the "lower bound" and "upper bound" are considered outliers
     if method == "iqr":
         # storing the 1st quantile and 3rd quantile values
         Q1 = dataframe[numerical_columns].quantile(0.25)
@@ -116,6 +114,27 @@ def detech_outliers(
             (dataframe[numerical_columns] < (Q1 - threshold * IQR)) |
             (dataframe[numerical_columns] < (Q3 + threshold * IQR))
         )
-        
+    # The Z-score measures how far a data point is from the mean in terms of standard deviations.
+    # Formula: Z = (X - μ) / σ
+    # - X is the data point
+    # - μ (mu) is the mean
+    # - σ (sigma) is the standard deviation
+    
+    # Z-score interpretation:
+    # - Z = 0: data point is at the mean
+    # - Z > 0: data point is above the mean
+    # - Z < 0: data point is below the mean
+    
+    # Example diagram:
+    #         |-----|-----|-----|-----|-----|-----|
+    # Z-score   -3    -2    -1    0     1     2     3
+    #         Below mean       Mean        Above mean
+    elif method == "zscore":
+        z_score = np.abs(zscore[dataframe[numerical_columns]])
+        outliers = z_score > threshold
+    else:
+        raise ValueError("Invalid method for detecting outliers. Choose 'iqr' or 'zscore'.")
+            
     # adding the outliers into dataframe to create flags
     dataframe["outliers"] = outliers.any(axis=1)
+    return dataframe
