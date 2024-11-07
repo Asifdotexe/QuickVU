@@ -72,18 +72,18 @@ def detech_outliers(
     Detect outliers using the specified method.
 
     :param dataframe: The DataFrame to detect outliers in.
-    :type dataframe: pandas.DataFrame
+    :type dataframe: pd.DataFrame
     :param numerical_columns: List of numerical columns to check for outliers.
     :type numerical_columns: list
-    :param method: Method to detect outliers. Options are 'iqr' or 'zscore'.
+    :param method: Method to detect outliers. Options are `iqr` or `zscore`.
     :type method: str, optional
-        Default is 'iqr'.
+        Default is `iqr`.
     :param threshold: The threshold to determine outliers based on the chosen method.
     :type threshold: float, optional
         Default is 1.5.
 
     :return: DataFrame with outliers flagged.
-    :rtype: pandas.DataFrame
+    :rtype: pd.DataFrame
     """
     # Interquartile Range (IQR) is a statistical measure used to identify outliers in a dataset.
     # It is the range between the 1st quartile (Q1) and the 3rd quartile (Q3), where:
