@@ -39,3 +39,18 @@ def handle_missing_values(dataframe: pd.DataFrame, method: str = "drop") -> pd.D
     else:
         raise ValueError("Invalid method for handling missing values. Choose 'drop', 'mean', or 'median'.")
     return dataframe
+
+def convert_data_types(dataframe: pd.DataFrame, column_types: dict) -> pd.DataFrame:
+    """Convert columns to specific data types.
+    
+    :param dataframe: The DataFrame to convert column types.
+    :type dataframe: pd.DataFrame
+    :param column_types: A dictionary where keys are column names and values are target data types.
+    :type column_types: dict
+    
+    :return: DataFrame with updated data types.
+    :rtype: pd.DataFrame
+    """
+    for column, dtype in column_types.items():
+        dataframe[column] = dataframe[column].astype(dtype)
+    return dataframe
