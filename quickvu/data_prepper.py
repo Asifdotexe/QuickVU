@@ -198,3 +198,21 @@ def scale_data(
     
     dataframe[numerical_columns] = scaler.fit_transform(dataframe[numerical_columns])
     return dataframe
+
+def standardize_column_names(dataframe: pd.DataFrame) -> pd.DataFrame:
+    """Standardize column names by converting them to lowercase and removing spaces.
+    
+    :param dataframe: The DataFrame to standardize column names.
+    :type dataframe: pd.DataFrame
+    
+    :return: DataFrame with standardized column names.
+    :rtype: pd.DataFrame
+    """
+    dataframe.columns = (
+        dataframe.columns
+        .str.strip()                                  # removing leading and replacing whitespaces 
+        .str.lower()                                  # convert to lowercase
+        .str.replace(' ', '_', regex=False)           # replacing spaces with underscores
+        .str.replace('[^a-zA-Z0-9_]', '', regex=True) # remove non-alphanumeric characters
+    )
+    return dataframe
