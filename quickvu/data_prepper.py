@@ -18,7 +18,10 @@ def get_data_overview(dataframe: pd.DataFrame) -> dict:
     }
     return data_overview
 
-def handle_missing_values(dataframe: pd.DataFrame, method: str = "drop") -> pd.DataFrame:
+def handle_missing_values(
+        dataframe: pd.DataFrame, 
+        method: str = "drop"
+    ) -> pd.DataFrame:
     """Handle missing values in the dataset based on the chosen method.
     
     :param dataframe: The Dataframe to handle missing values for.
@@ -40,7 +43,10 @@ def handle_missing_values(dataframe: pd.DataFrame, method: str = "drop") -> pd.D
         raise ValueError("Invalid method for handling missing values. Choose 'drop', 'mean', or 'median'.")
     return dataframe
 
-def convert_data_types(dataframe: pd.DataFrame, column_types: dict) -> pd.DataFrame:
+def convert_data_types(
+        dataframe: pd.DataFrame, 
+        column_types: dict
+    ) -> pd.DataFrame:
     """Convert columns to specific data types.
     
     :param dataframe: The DataFrame to convert column types.
@@ -54,3 +60,62 @@ def convert_data_types(dataframe: pd.DataFrame, column_types: dict) -> pd.DataFr
     for column, dtype in column_types.items():
         dataframe[column] = dataframe[column].astype(dtype)
     return dataframe
+
+def detech_outliers(
+        dataframe: pd.DataFrame, 
+        numerical_columns: list, 
+        method: str = "iqr",
+        threshold: float = 1.5
+    ) -> pd.DataFrame:
+    """
+    Detect outliers using the specified method.
+
+    :param dataframe: The DataFrame to detect outliers in.
+    :type dataframe: pandas.DataFrame
+    :param numerical_columns: List of numerical columns to check for outliers.
+    :type numerical_columns: list
+    :param method: Method to detect outliers. Options are 'iqr' or 'zscore'.
+    :type method: str, optional
+        Default is 'iqr'.
+    :param threshold: The threshold to determine outliers based on the chosen method.
+    :type threshold: float, optional
+        Default is 1.5.
+
+    :return: DataFrame with outliers flagged.
+    :rtype: pandas.DataFrame
+    """
+    #NOTE: This part of the code performs the outlier detection using IQR Method
+    """
+    Interquartile Range (IQR) is a statistical measure used to identify outliers in a dataset.
+    It is the range between the 1st quartile (Q1) and the 3rd quartile (Q3), where:
+    
+    - Q1 (the 1st quartile) is the value below which 25% of the data falls.
+    - Q3 (the 3rd quartile) is the value below which 75% of the data falls.
+    
+    The IQR is calculated as: IQR = Q3 - Q1
+    
+    Outliers are considered any data points that fall below: 
+    - Lower bound = Q1 - 1.5 * IQR
+    - Upper bound = Q3 + 1.5 * IQR
+    
+    Here is a basic diagram of the IQR:
+    
+          |---------|---------|---------|---------|---------|
+     ---- Q1      Median    Q3       Upper Bound    Lower Bound
+    
+    Anything outside the "lower bound" and "upper bound" are considered outliers
+    """
+    if method == "iqr":
+        # storing the 1st quantile and 3rd quantile values
+        Q1 = dataframe[numerical_columns].quantile(0.25)
+        Q3 = dataframe[numerical_columns].quantile(0.75)
+        # calculating the interquartile range
+        IQR = Q3 - Q1
+        # filtering and storing the outlier data
+        outliers = (
+            (dataframe[numerical_columns] < (Q1 - threshold * IQR)) |
+            (dataframe[numerical_columns] < (Q3 + threshold * IQR))
+        )
+        
+    # adding the outliers into dataframe to create flags
+    dataframe["outliers"] = outliers.any(axis=1)
