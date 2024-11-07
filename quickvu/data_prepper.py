@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from scipy.stats import zscore
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 def get_data_overview(dataframe: pd.DataFrame) -> dict:
     """Get an overview of the data including basic information and sample rows.
@@ -168,4 +169,32 @@ def remove_duplicates(dataframe: pd.DataFrame) -> pd.DataFrame:
     :rtype: pd.DataFrame
     """
     dataframe.drop_duplicates(inplace=True)
+    return dataframe
+
+def scale_data(
+        dataframe: pd.DataFrame,
+        numerical_columns: list,
+        method: str = "standarize"
+    ) -> pd.DataFrame:
+    """Scale numerical data to a specified range or distribution.
+    
+    :param dataframe: The DataFrame containing numerical columns.
+    :type dataframe: pd.DataFrame
+    :param numerical_columns: List of numerical columns to scale.
+    :type numerical_columns: list
+    :param method: Method to scale the data. Options are `standarize` (z-score) or `minmax` (min-max).
+    :type method: str, optional
+        Default is `standardize`.
+        
+    :return: Scaled DataFrame
+    :rtype: pd.DataFrame
+    """
+    if method == "standarize":
+        scaler = StandardScaler()
+    elif method == "normalize":
+        scaler = MinMaxScaler()
+    else:
+        raise ValueError("Invalid method for scaling data. Choose 'standarize' or 'minmax'.")
+    
+    dataframe[numerical_columns] = scaler.fit_transform(dataframe[numerical_columns])
     return dataframe
