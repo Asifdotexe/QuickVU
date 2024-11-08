@@ -217,7 +217,10 @@ def standardize_column_names(dataframe: pd.DataFrame) -> pd.DataFrame:
     )
     return dataframe
 
-def manipulate_columns(dataframe, column_operations) -> pd.DataFrame:
+def manipulate_columns(
+        dataframe: pd.DataFrame, 
+        column_operations: dict
+    ) -> pd.DataFrame:
     """Perform various column manipulation like renaming or adding new columns.
     
     :param dataframe: The DataFrame to manipulate columns.
@@ -235,4 +238,23 @@ def manipulate_columns(dataframe, column_operations) -> pd.DataFrame:
     if 'add' in column_operations:
         for new_column, func in column_operations['add'].items():
             dataframe[new_column] = dataframe.apply(func, axis=1)
+    return dataframe
+
+def filter_rows(
+        dataframe: pd.DataFrame, 
+        filter_conditions: dict,
+    ) -> pd.DataFrame:
+    """Filter rows based on specified conditions
+    
+    :param dataframe: The DataFrame to filter rows from.
+    :type dataframe: pd.DataFrame
+    :param filter_conditions: A dictionary containing conditions for filtering rows.
+    :type filter_conditions: dict\n
+        Example: `{'column1': 'value1', 'column2': 'value2'}`
+        
+    :return: Filtered DataFrame
+    :rtype: pd.DataFrame
+    """
+    for column, value in filter_conditions.items():
+        dataframe = dataframe[dataframe[column] == value]
     return dataframe
