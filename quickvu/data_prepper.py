@@ -216,3 +216,23 @@ def standardize_column_names(dataframe: pd.DataFrame) -> pd.DataFrame:
         .str.replace('[^a-zA-Z0-9_]', '', regex=True) # remove non-alphanumeric characters
     )
     return dataframe
+
+def manipulate_columns(dataframe, column_operations) -> pd.DataFrame:
+    """Perform various column manipulation like renaming or adding new columns.
+    
+    :param dataframe: The DataFrame to manipulate columns.
+    :type dataframe: pd.DataFrame
+    :param column_operations: A dictionary containing operations to perform on columns.
+    :type column_operations: dict\n
+    Example: `{'rename': {'old_name': 'new_name'}, 'add': {'new_column': lambda x: x['column1'] + x['column2']}}`
+    
+    
+    :return: DataFrame with manipulated columns.
+    :rtype: pd.DataFrame
+    """
+    if 'rename' in column_operations:
+        dataframe = dataframe.rename(column=column_operations['rename'])
+    if 'add' in column_operations:
+        for new_column, func in column_operations['add'].items():
+            dataframe[new_column] = dataframe.apply(func, axis=1)
+    return dataframe
