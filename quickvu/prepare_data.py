@@ -35,14 +35,29 @@ def handle_missing_values(
     :return: The DataFrame with missing values handled.
     :rtype: pd.DataFrame
     """
+    # we want the script to handle the datatypes gracefully without causing errors
+    numerical_columns = dataframe.select_dtypes(include=[np.number]).columns.tolist()
+    categorical_columns = dataframe.select_dtypes(exclude=[np.number]).columns.tolist()
+
     if method == "drop":
+        # dropping the missing values without any caveats
         dataframe = dataframe.dropna()
+        
     elif method == "mean":
-        dataframe = dataframe.fillna(dataframe.mean())
+        # imputing numerical columns with mean and categorical with mode
+        dataframe[numerical_columns] = dataframe[numerical_columns].fillna(dataframe[numerical_columns].mean())
+        for column in categorical_columns:
+            dataframe[column] = dataframe[column].fillna(dataframe[column].mode()[0])
+            
     elif method == "median":
-        dataframe = dataframe.fillna(dataframe.median())
+        # Impute numerical columns with median and categorical with mode
+        dataframe[numerical_columns] = dataframe[numerical_columns].fillna(dataframe[numerical_columns].median())
+        for column in categorical_columns:
+            dataframe[column] = dataframe[column].fillna(dataframe[column].mode()[0])  # Using mode for categorical columns
+            
     else:
         raise ValueError("Invalid method for handling missing values. Choose 'drop', 'mean', or 'median'.")
+    
     return dataframe
 
 def convert_data_types(
