@@ -258,3 +258,21 @@ def filter_rows(
     for column, value in filter_conditions.items():
         dataframe = dataframe[dataframe[column] == value]
     return dataframe
+
+def export_data(
+        dataframe: pd.DataFrame,
+        file_name: str ='cleaned_data.csv',
+    ) -> str:
+    """Export the cleaned DataFrame to a CSV file.
+    
+    :param dataframe: The DataFrame to export.
+    :type dataframe: pd.DataFrame
+    :param file_name: The name of the file to export the data to.
+    :type file_name: str, optional
+        Default is `cleaned_data.csv`
+        
+    :return: Path to the saved CSV file
+    :rtype: str
+    """
+    dataframe.to_csv(file_name, index=False)
+    return f'Data exported to {file_name}'
