@@ -14,6 +14,17 @@ def generate_summary_statistics(df: pd.DataFrame):
     """
     return df.describe()
 
+def generate_object_summary_statistics(df: pd.DataFrame):
+    """
+    Generates and returns summary statistics for the dataframe.
+    
+    :param df: Input dataset.
+    
+    :returns: Summary statistics.
+    :rtype: pd.DataFrame
+    """
+    return df.describe(include='object')
+
 def plot_sales_trends(
     df: pd.DataFrame, 
     date_column: str, 
