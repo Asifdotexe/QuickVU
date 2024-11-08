@@ -108,7 +108,8 @@ if uploaded_file:
     
     if st.sidebar.checkbox("Show Summary Statistics", help="Display summary statistics such as mean, median, and standard deviation for numerical columns."):
         st.markdown('<h2 class="sub-header">Summary Statistics</h2>', unsafe_allow_html=True)
-        st.write(eda.generate_summary_statistics(df_clean))
+        st.write("Numerical:",eda.generate_summary_statistics(df_clean))
+        st.write("Categorical:",eda.generate_object_summary_statistics(df_clean))
 
     if st.sidebar.checkbox("Show Correlation Matrix", help="Display a correlation matrix for selected numerical columns."):
         st.markdown('<h2 class="sub-header">Correlation Matrix</h2>', unsafe_allow_html=True)
