@@ -61,10 +61,7 @@ if uploaded_file:
     # Cleaning options
     st.sidebar.markdown('<h3 class="side-header">Data Cleaning Options</h3>', unsafe_allow_html=True)
     
-    if st.sidebar.checkbox("Show Summary Statistics", help="Display summary statistics such as mean, median, and standard deviation for numerical columns."):
-        st.markdown('<h2 class="sub-header">Summary Statistics</h2>', unsafe_allow_html=True)
-        st.write("Numerical:",eda.generate_summary_statistics(df))
-        st.write("Categorical:",eda.generate_object_summary_statistics(df))
+    show_summary_stats = st.sidebar.checkbox("Show Summary Statistics", help="Display summary statistics such as mean, median, and standard deviation for numerical columns.")
         
     # Standardize Column Names
     if st.sidebar.checkbox("Standardize Column Names", help="Convert column names to lowercase and replace spaces with underscores."):
@@ -81,7 +78,7 @@ if uploaded_file:
         df = DataPrepper.handle_missing_values(df, method='median')
     elif missing_value_option == "Drop Missing Rows":
         df = DataPrepper.handle_missing_values(df)
-
+                
     # Outlier Handling
     if st.sidebar.checkbox("Detect and Handle Outliers", help="Apply Z-score or IQR method to handle outliers."):
         outlier_method = st.sidebar.radio("Outlier Detection Method", ("Z-score", "IQR"))
@@ -122,6 +119,11 @@ if uploaded_file:
     # Display the cleaned dataset
     st.markdown('<h2 class="sub-header">Cleaned Dataset</h2>', unsafe_allow_html=True)
     st.write(df.head(10))
+    
+    if show_summary_stats:
+        st.markdown('<h2 class="sub-header">Summary Statistics</h2>', unsafe_allow_html=True)
+        st.write("Numerical:", eda.generate_summary_statistics(df))
+        st.write("Categorical:", eda.generate_object_summary_statistics(df))
 
     # Download option
     st.sidebar.markdown('<h3 class="side-header">Download Cleaned Data</h3>', unsafe_allow_html=True)
