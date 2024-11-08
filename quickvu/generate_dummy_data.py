@@ -40,6 +40,8 @@ def generate_test_data(num_rows=100):
     # Add some outliers in the 'Salary' and 'Performance_Score' columns
     df.loc[np.random.choice(num_rows, 3, replace=False), 'Salary'] = 200000  # Very high salaries as outliers
     df.loc[np.random.choice(num_rows, 3, replace=False), 'Performance_Score'] = 5  # Very low performance scores as outliers
+    df.loc[np.random.choice(num_rows, 1, replace=False), 'Age'] = 98  # Very low performance scores as outliers
+    
     
     return df
 

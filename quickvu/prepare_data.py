@@ -75,28 +75,31 @@ def convert_data_types(
     :rtype: pd.DataFrame
     """
     for column, dtype in column_types.items():
-        dataframe[column] = dataframe[column].astype(dtype)
+        if dtype == 'datetime':
+            dataframe[column] = pd.to_datetime(dataframe[column], errors='coerce')
+        else:
+            dataframe[column] = dataframe[column].astype(dtype)
     return dataframe
 
 def detech_outliers(
         dataframe: pd.DataFrame, 
-        numerical_columns: list, 
         method: str = "iqr",
-        threshold: float = 1.5
+        threshold: float = 1.5,
+        columns: list = None  # Accept a list of columns instead of a single column
     ) -> pd.DataFrame:
     """
     Detect outliers using the specified method.
 
     :param dataframe: The DataFrame to detect outliers in.
     :type dataframe: pd.DataFrame
-    :param numerical_columns: List of numerical columns to check for outliers.
-    :type numerical_columns: list
     :param method: Method to detect outliers. Options are `iqr` or `zscore`.
     :type method: str, optional
         Default is `iqr`.
     :param threshold: The threshold to determine outliers based on the chosen method.
     :type threshold: float, optional
         Default is 1.5.
+    :param columns: List of columns to detect outliers in. If None, detects outliers in all numerical columns.
+    :type columns: list, optional
 
     :return: DataFrame with outliers flagged.
     :rtype: pd.DataFrame
@@ -119,17 +122,17 @@ def detech_outliers(
     #  ---- Q1      Median    Q3       Upper Bound    Lower Bound
     
     # Anything outside the "lower bound" and "upper bound" are considered outliers
+    # defining a list of numerical values
+    # Determine which columns to use: the specified column or all numerical columns
+    if columns is None:
+        columns = dataframe.select_dtypes(include=[np.number]).columns.tolist()
+        
     if method == "iqr":
-        # storing the 1st quantile and 3rd quantile values
-        Q1 = dataframe[numerical_columns].quantile(0.25)
-        Q3 = dataframe[numerical_columns].quantile(0.75)
-        # calculating the interquartile range
+        Q1 = dataframe[columns].quantile(0.25)
+        Q3 = dataframe[columns].quantile(0.75)
         IQR = Q3 - Q1
-        # filtering and storing the outlier data
-        outliers = (
-            (dataframe[numerical_columns] < (Q1 - threshold * IQR)) |
-            (dataframe[numerical_columns] < (Q3 + threshold * IQR))
-        )
+        outliers = (dataframe[columns] < (Q1 - threshold * IQR)) | \
+                   (dataframe[columns] > (Q3 + threshold * IQR))
     # The Z-score measures how far a data point is from the mean in terms of standard deviations.
     # Formula: Z = (X - μ) / σ
     # - X is the data point
@@ -146,13 +149,14 @@ def detech_outliers(
     # Z-score   -3    -2    -1    0     1     2     3
     #         Below mean       Mean        Above mean
     elif method == "zscore":
-        z_score = np.abs(zscore[dataframe[numerical_columns]])
-        outliers = z_score > threshold
+        z_scores = np.abs(dataframe[columns].apply(zscore))
+        outliers = z_scores > threshold
     else:
         raise ValueError("Invalid method for detecting outliers. Choose 'iqr' or 'zscore'.")
             
     # adding the outliers into dataframe to create flags
-    dataframe["outliers"] = outliers.any(axis=1)
+    for column in columns:
+        dataframe[f"{column}_outliers"] = outliers[column]
     return dataframe
 
 def clean_text_data(
