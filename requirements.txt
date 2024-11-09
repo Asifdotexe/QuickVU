@@ -19,3 +19,4 @@ grpcio==1.67.1
 grpcio-status==1.67.1
 httplib2==0.22.0
 idna==3.10
+openpyxl
