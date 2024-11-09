@@ -5,7 +5,7 @@ import quickvu.prepare_data as DataPrepper
 from quickvu import eda
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
-with open('pages\styles.css') as f:
+with open('pages/styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # Header
