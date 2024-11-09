@@ -28,7 +28,7 @@ def plot_sales_by_product(
 
     # Plot the bar chart
     sns.barplot(x=product_column, y=sales_column, data=sales_by_product, ax=ax)
-    ax.set_title('Sales by Product')
+    ax.set_title('Sales by Category')
     ax.set_xlabel(product_column)
     ax.set_ylabel(sales_column)
     
