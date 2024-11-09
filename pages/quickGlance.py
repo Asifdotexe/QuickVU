@@ -10,62 +10,22 @@ from quickvu import gemini
 
 sns.set_style('whitegrid')
 
-st.markdown("""
-    <style>
-    body {
-        background-color: #FFFFFF;
-    }
-    .main-header { 
-        color: #0b78ee; 
-        font-size: 34px; 
-        font-weight: 700;
-        text-align: left;
-        margin-bottom: 20px;
-    }
-    .sub-header { 
-        color: #0b78ee;
-        font-size: 24px; 
-        font-weight: 600; 
-        margin: 20px 0;
-    }
-    .side-header {
-        color: #0b78ee;
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-    .section-divider {
-        border-top: 2px solid #0b78ee;
-        margin: 30px 0;
-    }
-    .instructions {
-        font-size: 16px;
-        color: #0b78ee;
-        margin-bottom: 10px;
-    }
-    .warning-message {
-        color: #0b78ee;
-        font-size: 16px;
-        font-weight: 500;
-        margin: 10px 0;
-    }
-    </style>
-""", unsafe_allow_html=True)
+with open('pages\styles.css') as f:
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-st.markdown('<h1 class="main-header">QuickVU: Adhoc Data Analysis Tool</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="main-header">Quick Glance: Data Analysis Tool</h1>', unsafe_allow_html=True)
 st.markdown("""
-Quick VU (Quick Visual Understanding) is a no-code data visualization and analysis tool. Designed with simplicity in mind, 
-Quick VU helps users explore datasets with ease. Just upload your data, select your analysis options, and let Quick VU guide you 
-through insights and visualizations.
+Quick Glance is a data analysis tool that provides summary statistics, visualizes correlations, and generates quick plots to give you a better understanding of your data.
 """)
 
-st.sidebar.image('./dataset/logo.png', use_container_width=True)
+st.sidebar.image('./dataset/logo-png.png', use_container_width=True)
 
 
 st.sidebar.markdown('<h3 class="side-header">Upload your Dataset</h3>', unsafe_allow_html=True)
 uploaded_file = st.sidebar.file_uploader("Choose a CSV file", type=["csv"], help="Upload your dataset in CSV format for analysis.")
 
 if uploaded_file:
+    #TODO: ADD HANDLING FOR EXCEL AND JSON
     df = pd.read_csv(uploaded_file)
     st.markdown('<h2 class="sub-header">Dataset Preview</h2>', unsafe_allow_html=True)
     st.write(df.head(10))
@@ -142,25 +102,25 @@ if uploaded_file:
     # Step 6: Visualization
     st.sidebar.markdown('<h3 class="side-header">Data Visualization</h3>', unsafe_allow_html=True)
     
-    if st.sidebar.checkbox("Plot Sales by Product", help="Plot a bar chart to visualize sales by product."):
-        st.markdown('<h2 class="sub-header">Sales by Product</h2>', unsafe_allow_html=True)
+    if st.sidebar.checkbox("Plot Metrics by Category", help="Plot a bar chart to visualize metrics by category."):
+        st.markdown('<h2 class="sub-header">Metrics by Category</h2>', unsafe_allow_html=True)
         if selected_categorical and selected_numerical:
-            product_col = st.sidebar.selectbox("Select Product Column", selected_categorical, key="product_col", help="Select a categorical column representing products.")
-            sales_col = st.sidebar.selectbox("Select Sales Amount Column", selected_numerical, key="sales_col", help="Select a numerical column representing sales amounts.")
-            fig = visualization.plot_sales_by_product(df_clean, product_col, sales_col)
+            categ_col = st.sidebar.selectbox("Select Categorical Column", selected_categorical, key="Categorical Column", help="Select a categorical column representing products.")
+            numer_col = st.sidebar.selectbox("Select Numeric Column", selected_numerical, key="Numerical Column", help="Select a numerical column representing sales amounts.")
+            fig = visualization.plot_sales_by_product(df_clean, categ_col, numer_col)
             st.pyplot(fig)
         else:
             st.markdown('<p class="warning-message">Please select both a Categorical and a Numerical column for this analysis.</p>', unsafe_allow_html=True)
 
     # Plot by dates
-    if st.sidebar.checkbox("Plot Sales Trends", help="Plot sales trends over time based on selected columns"):
+    if st.sidebar.checkbox("Plot Metrics Trends", help="Plot sales trends over time based on selected columns"):
         st.write("## Sales Trends Over Time")
 
         datetime_columns = df_clean.select_dtypes(include=['datetime64[ns]', 'object']).columns.tolist()
 
         if datetime_columns and numerical_columns:
-            date_col = datetime_columns[0] if len(datetime_columns) == 1 else st.sidebar.selectbox("Select Purchase Date Column", datetime_columns)
-            amount_col = st.sidebar.selectbox("Select Sales Amount Column", selected_numerical)
+            date_col = datetime_columns[0] if len(datetime_columns) == 1 else st.sidebar.selectbox("Select Date Column", datetime_columns)
+            amount_col = st.sidebar.selectbox("Select Numeric Column", selected_numerical)
 
             if date_col and amount_col:
                 df_clean[date_col] = pd.to_datetime(df_clean[date_col], errors='coerce')
@@ -175,6 +135,10 @@ if uploaded_file:
                 st.warning("Please ensure both a valid date column and a sales amount column are selected.")
         else:
             st.warning("Please ensure your dataset contains both Date/Time and Numerical columns for this analysis.")
+            
+else:
+    st.markdown('<p class="instructions">Please upload a CSV file to start data analysis.</p>', unsafe_allow_html=True)
+
 
 
 # Footer

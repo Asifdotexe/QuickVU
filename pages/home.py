@@ -3,57 +3,10 @@ import streamlit as st
 # Set up the page title and layout for the Home page
 st.set_page_config(page_title="Home - QuickVu", layout="wide")
 
-# Custom styles for the homepage
-st.markdown("""
-    <style>
-    body {
-        background-color: #FFFFFF;
-    }
-    .main-header { 
-        color: #0b78ee; 
-        font-size: 34px; 
-        font-weight: 700;
-        text-align: left;
-        margin-bottom: 20px;
-    }
-    .sub-header { 
-        color: #0b78ee;
-        font-size: 24px; 
-        font-weight: 600; 
-        margin: 20px 0;
-    }
-    .side-header {
-        color: #0b78ee;
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-    .section-divider {
-        border-top: 2px solid #0b78ee;
-        margin: 30px 0;
-    }
-    .instructions {
-        font-size: 16px;
-        color: #0b78ee;
-        margin-bottom: 10px;
-    }
-    .warning-message {
-        color: #0b78ee;
-        font-size: 16px;
-        font-weight: 500;
-        margin: 10px 0;
-    }
-    .github-section {
-        margin-top: 30px;
-    }
-    .github-img {
-        border-radius: 50%;
-        width: 120px;
-        height: 120px;
-        margin-top: 10px;
-    }
-    </style>
-""", unsafe_allow_html=True)
+with open('pages\styles.css') as f:
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
+st.image('./dataset/logo-png.png')
 
 # Main header for the homepage
 st.markdown("<h1 class='main-header'>Welcome to QuickVU!</h1>", unsafe_allow_html=True)

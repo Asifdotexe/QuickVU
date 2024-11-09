@@ -5,54 +5,15 @@ import quickvu.prepare_data as DataPrepper
 from quickvu import eda
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
-st.markdown("""
-    <style>
-    body {
-        background-color: #FFFFFF;
-    }
-    .main-header { 
-        color: #0b78ee; 
-        font-size: 34px; 
-        font-weight: 700;
-        text-align: left;
-        margin-bottom: 20px;
-    }
-    .sub-header { 
-        color: #0b78ee;
-        font-size: 24px; 
-        font-weight: 600; 
-        margin: 20px 0;
-    }
-    .side-header {
-        color: #0b78ee;
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-    .section-divider {
-        border-top: 2px solid #0b78ee;
-        margin: 30px 0;
-    }
-    .instructions {
-        font-size: 16px;
-        color: #0b78ee;
-        margin-bottom: 10px;
-    }
-    .warning-message {
-        color: #0b78ee;
-        font-size: 16px;
-        font-weight: 500;
-        margin: 10px 0;
-    }
-    </style>
-""", unsafe_allow_html=True)
+with open('pages\styles.css') as f:
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # Header
 st.markdown('<h1 class="main-header">Quick Prep: Data Cleaning Tool</h1>', unsafe_allow_html=True)
 st.markdown("""Quick Prep is a versatile data cleaning tool to help prepare your dataset for analysis. Simply upload your data, select the desired cleaning options, and download the prepared data.""")
 
 # Sidebar - File upload
-st.sidebar.image('./dataset/logo.png', use_container_width=True)
+st.sidebar.image('./dataset/logo-png.png', use_container_width=True)
 st.sidebar.markdown('<h3 class="side-header">Upload Dataset</h3>', unsafe_allow_html=True)
 uploaded_file = st.sidebar.file_uploader("Choose a CSV file", type=["csv"])
 
