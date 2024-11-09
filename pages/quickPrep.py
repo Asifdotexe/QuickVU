@@ -48,11 +48,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Header
-st.markdown('<h1 class="main-header">Data Prepper: Data Cleaning Tool</h1>', unsafe_allow_html=True)
-st.markdown("""Data Prepper is a versatile data cleaning tool to help prepare your dataset for analysis. Simply upload your data, select the desired cleaning options, and download the prepared data.""")
+st.markdown('<h1 class="main-header">Quick Prep: Data Cleaning Tool</h1>', unsafe_allow_html=True)
+st.markdown("""Quick Prep is a versatile data cleaning tool to help prepare your dataset for analysis. Simply upload your data, select the desired cleaning options, and download the prepared data.""")
 
 # Sidebar - File upload
-st.sidebar.image('./dataset/logo.png', use_column_width=True)
+st.sidebar.image('./dataset/logo.png', use_container_width=True)
 st.sidebar.markdown('<h3 class="side-header">Upload Dataset</h3>', unsafe_allow_html=True)
 uploaded_file = st.sidebar.file_uploader("Choose a CSV file", type=["csv"])
 

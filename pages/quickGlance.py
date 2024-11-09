@@ -59,7 +59,7 @@ Quick VU helps users explore datasets with ease. Just upload your data, select y
 through insights and visualizations.
 """)
 
-st.sidebar.image('./dataset/logo.png', use_column_width=True)
+st.sidebar.image('./dataset/logo.png', use_container_width=True)
 
 
 st.sidebar.markdown('<h3 class="side-header">Upload your Dataset</h3>', unsafe_allow_html=True)
