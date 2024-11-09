@@ -128,7 +128,7 @@ if uploaded_file:
     st.sidebar.download_button("Download CSV", data=csv, file_name="cleaned_data.csv", mime="text/csv", help="Download the cleaned data as a CSV file.")
 
 else:
-    st.markdown('<p class="instructions">Please upload a CSV file to start data cleaning.</p>', unsafe_allow_html=True)
+    st.markdown('<p class="instructions">Please upload a file to start data cleaning. </br> You can drop the file at the data uploader located on the navigation side bar. </p>', unsafe_allow_html=True)
 
 # Footer
 st.sidebar.write("---")

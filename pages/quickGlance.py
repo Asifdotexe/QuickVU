@@ -148,7 +148,7 @@ if uploaded_file:
             st.warning("Please ensure your dataset contains both Date/Time and Numerical columns for this analysis.")
             
 else:
-    st.markdown('<p class="instructions">Please upload a CSV file to start data analysis.</p>', unsafe_allow_html=True)
+    st.markdown('<p class="instructions">Please upload a CSV file to start data analysis. </br> You can drop the file at the data uploader located on the navigation side bar. </p>', unsafe_allow_html=True)
 
 
 
