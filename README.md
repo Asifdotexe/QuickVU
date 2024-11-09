@@ -7,15 +7,16 @@ Just upload your data, choose your analysis, and Quick VU will guide you through
 
 ## 📌 Project Objective
 
-The goal of **Quick VU** is to simplify data preparation and data exploration by offering a user-friendly platform that allows users to:
-* Quickly clean your data and export it, making it ready for analysis.
-* Quickly analyse your data and infer from it.
+**Quick VU** _(Quick Visual Understanding)_ is a user-friendly tool for data preparation, analysis, and visualization. It allows you to clean, explore, and visualize your data without any coding. Simply upload your dataset, choose your analysis, and let Quick VU guide you through the process.
+
+* Quickly clean your data and export it for further analysis.
+* Efficiently analyze your data and gain insights.
 
 ## 📃 Features
 
-* QuickPrep: Data cleaning tool that helps you to perform tasks like column name standarization, missing value treatment, outlier detection and removal, changing data types, filtering rows, data scaling.
+* QuickPrep: A data cleaning tool that helps with tasks such as column name standardization, handling missing values, detecting and removing outliers, changing data types, filtering rows, and scaling data.
 
-* QuickGlance: Data analysis tool that lets you quickly look at the summary statistics, correlation and allows you to make a few quick plots to get a better understanding of the data at hand.
+* QuickGlance: A data analysis tool that provides summary statistics, visualizes correlations, and generates quick plots to give you a better understanding of your data.
 
 ## 📦 Installation
 
