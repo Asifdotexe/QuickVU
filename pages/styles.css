@@ -1,0 +1,46 @@
+body {
+    background-color: #FFFFFF;
+}
+.main-header { 
+    color: #0b78ee; 
+    font-size: 34px; 
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 20px;
+}
+.sub-header { 
+    color: #0b78ee;
+    font-size: 24px; 
+    font-weight: 600; 
+    margin: 20px 0;
+}
+.side-header {
+    color: #0b78ee;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.section-divider {
+    border-top: 2px solid #0b78ee;
+    margin: 30px 0;
+}
+.instructions {
+    font-size: 16px;
+    color: #0b78ee;
+    margin-bottom: 10px;
+}
+.warning-message {
+    color: #0b78ee;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 10px 0;
+}
+.github-section {
+    margin-top: 30px;
+}
+.github-img {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    margin-top: 10px;
+}
