@@ -2,45 +2,45 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-def plot_sales_by_product(
+def plot_metrics_by_category(
     df: pd.DataFrame, 
-    product_column: str, 
-    sales_column: str
+    category_column: str, 
+    numerical_column: str
 ) -> plt.Figure:
     """
-    Plots total sales by product.
+    Plots total metrics by category.
     
     :param df: Input dataset.
-    :param product_column: Column representing products.
-    :param sales_column: Column representing sales amount.
+    :param category_column: Column representing categorical values.
+    :param numerical_column: Column representing numerical values.
     
     :returns: Matplotlib figure object
     """
     fig, ax = plt.subplots()
     
     # Group by product and sum sales
-    sales_by_product = df.groupby(product_column)[sales_column].sum().reset_index()
+    metric_by_category = df.groupby(category_column)[numerical_column].sum().reset_index()
     
     # Check the number of unique products
-    if sales_by_product.shape[0] > 10:
+    if metric_by_category.shape[0] > 10:
         # Take the top 10 products based on sales
-        sales_by_product = sales_by_product.nlargest(10, sales_column)
+        metric_by_category = metric_by_category.nlargest(10, numerical_column)
 
     # Plot the bar chart
-    sns.barplot(x=product_column, y=sales_column, data=sales_by_product, ax=ax)
-    ax.set_title('Sales by Category')
-    ax.set_xlabel(product_column)
-    ax.set_ylabel(sales_column)
+    sns.barplot(x=category_column, y=numerical_column, data=metric_by_category, ax=ax)
+    ax.set_title('Metrics by Category')
+    ax.set_xlabel(category_column)
+    ax.set_ylabel(numerical_column)
     
     # Rotate x-axis labels for better visibility if there are many products
     ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right')
 
     return fig
 
-def plot_customer_demographics(
+def plot_distribution(
     df: pd.DataFrame, 
-    customer_column: str, 
-    sales_column: str
+    categorical_column: str, 
+    numerical_column: str
     ):
     """
     Plots customer demographics such as the number of purchases per customer.
@@ -52,7 +52,7 @@ def plot_customer_demographics(
     :returns: Matplotlib figure object
     """
     fig, ax = plt.subplots()
-    customer_sales = df.groupby(customer_column)[sales_column].sum().reset_index()
-    sns.histplot(customer_sales[sales_column], bins=20, kde=True, ax=ax)
-    ax.set_title('Customer Demographics (Purchases per Customer)')
+    customer_sales = df.groupby(categorical_column)[numerical_column].sum().reset_index()
+    sns.histplot(customer_sales[numerical_column], bins=20, kde=True, ax=ax)
+    ax.set_title('Histogram Plot')
     return fig

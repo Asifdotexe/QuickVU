@@ -118,14 +118,14 @@ if uploaded_file:
         if selected_categorical and selected_numerical:
             categ_col = st.sidebar.selectbox("Select Categorical Column", selected_categorical, key="Categorical Column", help="Select a categorical column representing products.")
             numer_col = st.sidebar.selectbox("Select Numeric Column", selected_numerical, key="Numerical Column", help="Select a numerical column representing sales amounts.")
-            fig = visualization.plot_sales_by_product(df_clean, categ_col, numer_col)
+            fig = visualization.plot_metrics_by_category(df_clean, categ_col, numer_col)
             st.pyplot(fig)
         else:
             st.markdown('<p class="warning-message">Please select both a Categorical and a Numerical column for this analysis.</p>', unsafe_allow_html=True)
 
     # Plot by dates
-    if st.sidebar.checkbox("Plot Metrics Trends", help="Plot sales trends over time based on selected columns"):
-        st.write("## Sales Trends Over Time")
+    if st.sidebar.checkbox("Plot Metrics Trends", help="Plot metric trends over time based on selected columns"):
+        st.write("## Metrics Over Time")
 
         datetime_columns = df_clean.select_dtypes(include=['datetime64[ns]', 'object']).columns.tolist()
 
@@ -148,9 +148,7 @@ if uploaded_file:
             st.warning("Please ensure your dataset contains both Date/Time and Numerical columns for this analysis.")
             
 else:
-    st.markdown('<p class="instructions">Please upload a CSV file to start data analysis.</p>', unsafe_allow_html=True)
-
-
+    st.markdown('<p class="instructions">Please upload a CSV file to start data analysis. </br> You can drop the file at the data uploader located on the navigation side bar. </p>', unsafe_allow_html=True)
 
 # Footer
 st.sidebar.write("---")
