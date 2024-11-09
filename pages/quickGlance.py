@@ -22,13 +22,24 @@ st.sidebar.image('./dataset/logo-png.png', use_container_width=True)
 
 
 st.sidebar.markdown('<h3 class="side-header">Upload your Dataset</h3>', unsafe_allow_html=True)
-uploaded_file = st.sidebar.file_uploader("Choose a CSV file", type=["csv"], help="Upload your dataset in CSV format for analysis.")
+uploaded_file = st.sidebar.file_uploader("Choose a CSV, Excel, or JSON file", type=["csv", "xlsx", "xls", "json"], help="Upload your dataset in CSV, Excel, or JSON format for analysis.")
 
 if uploaded_file:
-    #TODO: ADD HANDLING FOR EXCEL AND JSON
-    df = pd.read_csv(uploaded_file)
-    st.markdown('<h2 class="sub-header">Dataset Preview</h2>', unsafe_allow_html=True)
-    st.write(df.head(10))
+    try:
+        # Read data based on file type
+        if uploaded_file.name.endswith('.csv'):
+            df = pd.read_csv(uploaded_file)
+        elif uploaded_file.name.endswith(('.xlsx', '.xls')):
+            df = pd.read_excel(uploaded_file)
+        elif uploaded_file.name.endswith('.json'):
+            df = pd.read_json(uploaded_file)
+        
+        # Display preview of the dataset
+        st.markdown('<h2 class="sub-header">Dataset Preview</h2>', unsafe_allow_html=True)
+        st.write(df.head(10))
+    
+    except Exception as e:
+        st.error(f"Error loading file: {e}")
     
     columns = df.columns.tolist()
     column_types = df.dtypes

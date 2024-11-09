@@ -56,3 +56,7 @@ st.markdown("""
     For any feedback or inquiries, feel free to reach out via my GitHub or email.  
     Happy analyzing!
 """)
+
+# Footer
+# st.sidebar.write("---")
+st.sidebar.write("Project by `Asif Sayyed`")

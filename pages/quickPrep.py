@@ -14,19 +14,26 @@ st.markdown("""Quick Prep is a versatile data cleaning tool to help prepare your
 
 # Sidebar - File upload
 st.sidebar.image('./dataset/logo-png.png', use_container_width=True)
-st.sidebar.markdown('<h3 class="side-header">Upload Dataset</h3>', unsafe_allow_html=True)
-uploaded_file = st.sidebar.file_uploader("Choose a CSV file", type=["csv"])
 
-# Check if file is uploaded
+st.sidebar.markdown('<h3 class="side-header">Upload your Dataset</h3>', unsafe_allow_html=True)
+uploaded_file = st.sidebar.file_uploader("Choose a CSV, Excel, or JSON file", type=["csv", "xlsx", "xls", "json"], help="Upload your dataset in CSV, Excel, or JSON format for analysis.")
+
 if uploaded_file:
-    # Load the data into a DataFrame and store in session state
-    if 'df' not in st.session_state:
-        st.session_state.df = pd.read_csv(uploaded_file)
+    try:
+        # Read data based on file type
+        if uploaded_file.name.endswith('.csv'):
+            df = pd.read_csv(uploaded_file)
+        elif uploaded_file.name.endswith(('.xlsx', '.xls')):
+            df = pd.read_excel(uploaded_file)
+        elif uploaded_file.name.endswith('.json'):
+            df = pd.read_json(uploaded_file)
+        
+        # Display preview of the dataset
+        st.markdown('<h2 class="sub-header">Dataset Preview</h2>', unsafe_allow_html=True)
+        st.write(df.head(10))
     
-    df = st.session_state.df
-    
-    st.markdown('<h2 class="sub-header">Dataset Preview</h2>', unsafe_allow_html=True)
-    st.write(df.head(10))
+    except Exception as e:
+        st.error(f"Error loading file: {e}")
 
     # Sidebar - Data Cleaning Options
     st.sidebar.markdown('<h3 class="side-header">Data Cleaning Options</h3>', unsafe_allow_html=True)
@@ -122,3 +129,7 @@ if uploaded_file:
 
 else:
     st.markdown('<p class="instructions">Please upload a CSV file to start data cleaning.</p>', unsafe_allow_html=True)
+
+# Footer
+st.sidebar.write("---")
+st.sidebar.write("Project by `Asif Sayyed`")
