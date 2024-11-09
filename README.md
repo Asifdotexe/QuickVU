@@ -53,28 +53,9 @@ Just upload your data, choose your analysis, and Quick VU will guide you through
 
 5. **Use Quick VU**
     - Open the provided local URL in your browser.
-    - Upload your CSV dataset and start exploring your data!
-
-## 📊 How to Use Quick VU
-
-1. **Upload Your Data**
-    - Navigate to the sidebar and use the file uploader to select your CSV file.
-    - After uploading, the dataset preview will display the first few rows.
-
-2. **Select Columns for Analysis**
-    - Choose which columns are categorical, numerical, and date/time from the sidebar options.
-
-3. **Preprocess Your Data**
-    - Decide how to handle missing values by selecting an option (Fill with Mean, Fill with Median, or Drop Missing Rows).
-    - The preprocessed dataset will be displayed for your review.
-
-4. **Perform Exploratory Data Analysis**
-    - **Summary Statistics**: Check the statistical summary of your numerical data.
-    - **Correlation Matrix**: View and understand the correlations between numerical variables.
-
-5. **Visualize Your Data**
-    - **Sales by Product**: Generate a bar chart to compare sales across different products.
-    - **Sales Trends Over Time**: Plot sales data over selected dates to identify trends.
+    - Upload your CSV dataset and start exploring your data! </br>
+      OR
+    - Visit: https://quickvu.streamlit.app/
 
 ## 🤝 Contributions
 
