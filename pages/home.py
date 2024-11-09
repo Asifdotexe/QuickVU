@@ -3,7 +3,7 @@ import streamlit as st
 # Set up the page title and layout for the Home page
 st.set_page_config(page_title="Home - QuickVu", layout="wide")
 
-with open('pages\styles.css') as f:
+with open('pages/styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 st.image('./dataset/logo-png.png')
