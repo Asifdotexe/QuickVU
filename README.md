@@ -1,56 +1,21 @@
-![Logo](https://github.com/Asifdotexe/QuickVU/blob/main/dataset/logo.png)
+![Logo](https://github.com/Asifdotexe/QuickVU/blob/main/dataset/logo-png.png)
 
 # Quick VU
 
-**Quick VU** stands for **Quick Visual Understanding**. It is a no-code data visualization and analysis tool designed to help users effortlessly explore and understand their datasets. Built with Streamlit, Quick VU provides an intuitive interface for uploading, preprocessing, and analyzing data, making it accessible to everyone regardless of technical expertise.
+**Quick VU** (Quick Visual Understanding) is an easy-to-use tool for data preparation, analysis, and visualization. It helps you clean, explore, and visualize your data without coding.
+Just upload your data, choose your analysis, and Quick VU will guide you through the process.
 
 ## 📌 Project Objective
 
-The goal of **Quick VU** is to simplify data exploration by offering a user-friendly platform that allows users to:
-- Upload and preview datasets quickly.
-- Select and categorize data columns for analysis.
-- Handle missing data with ease.
-- Generate summary statistics and visualize correlations.
-- Create specific visualizations like sales by product and sales trends over time.
+The goal of **Quick VU** is to simplify data preparation and data exploration by offering a user-friendly platform that allows users to:
+* Quickly clean your data and export it, making it ready for analysis.
+* Quickly analyse your data and infer from it.
 
-## 🚀 Features
+## 📃 Features
 
-### 1. Data Upload and Preview
-- **Upload Your Dataset**: Easily upload your CSV files through the sidebar.
-- **Dataset Preview**: View the first few rows of your data to ensure it's loaded correctly.
+* QuickPrep: Data cleaning tool that helps you to perform tasks like column name standarization, missing value treatment, outlier detection and removal, changing data types, filtering rows, data scaling.
 
-### 2. Column Selection
-- **Categorical Columns**: Select columns that contain categorical data (e.g., Product Type, Category).
-- **Numerical Columns**: Choose columns with numerical data (e.g., Sales Amount, Profit).
-- **Date/Time Columns**: Identify and select date or time-related columns for time-based analysis.
-
-### 3. Data Preprocessing
-- **Handle Missing Values**: Choose how to address missing data by filling with the mean, median, or dropping rows with missing values.
-- **Convert Data Types**: Automatically convert integer columns to datetime if specified.
-
-### 4. Exploratory Data Analysis (EDA)
-- **Summary Statistics**: Generate and view summary statistics such as mean, median, and standard deviation for numerical columns.
-- **Correlation Matrix**: Visualize the relationships between numerical variables using a heatmap. Additionally, get explanations for the correlations to understand the data better.
-
-### 5. Data Visualization
-- **Sales by Product**: Create bar charts to compare sales across different product categories. Select specific product and sales amount columns to tailor the visualization.
-- **Sales Trends Over Time**: Plot sales trends over selected dates to identify patterns and trends in your data.
-
-### 6. User-Friendly Interface
-- **Custom Styling**: Enjoy a modern and consistent look with custom CSS styling applied to the app.
-- **Interactive Sidebar**: Access all tools and options through an intuitive sidebar, making navigation straightforward.
-
-### 7. Additional Features
-- **Explain Correlation Matrix**: Get detailed explanations of the correlation matrix to better understand the data relationships.
-- **Preprocessed Data Display**: View the cleaned and preprocessed dataset after handling missing values.
-
-## 🛠️ Technologies Used
-
-- **Python**
-- **Streamlit**: For building the interactive web application.
-- **Pandas**: For data manipulation and analysis.
-- **Seaborn & Matplotlib**: For creating visualizations.
-- **NumPy**: For numerical operations.
+* QuickGlance: Data analysis tool that lets you quickly look at the summary statistics, correlation and allows you to make a few quick plots to get a better understanding of the data at hand.
 
 ## 📦 Installation
 
