@@ -2,7 +2,7 @@ python-dotenv
 numpy
 pandas
 seaborn
-streamlit
+streamlit==1.40.0
 matplotlib
 scipy
 scikit-learn
