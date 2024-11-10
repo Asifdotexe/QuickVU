@@ -10,6 +10,9 @@ with open('pages/styles.css') as f:
 
 # Header
 st.markdown('<h1 class="main-header">🧹 Quick Prep: Data Cleaning Tool</h1>', unsafe_allow_html=True)
+
+st.image('./dataset/quickPrepDiagram.png')
+
 st.markdown("""Quick Prep is a versatile data cleaning tool to help prepare your dataset for analysis. Simply upload your data, select the desired cleaning options, and download the prepared data.""")
 
 # Sidebar - File upload
