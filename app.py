@@ -3,11 +3,11 @@ import streamlit as st
 # Define your pages using st.Page objects
 pages = {
     "Main Pages": [
-        st.Page("pages/home.py", title="Home", icon=":material/home:"),
+        st.Page("app_pages/home.py", title="Home", icon=":material/home:"),
     ],
     "Apps": [
-        st.Page("pages/quickPrep.py", title="Quick Prep: Data Cleaning", icon=":material/mop:"),
-        st.Page("pages/quickGlance.py", title="Quick Glance: Data Analysis", icon=":material/search:",),
+        st.Page("app_pages/quickPrep.py", title="Quick Prep: Data Cleaning", icon=":material/mop:"),
+        st.Page("app_pages/quickGlance.py", title="Quick Glance: Data Analysis", icon=":material/search:",),
     ]
 }
 
