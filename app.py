@@ -6,8 +6,8 @@ pages = {
         st.Page("pages/home.py", title="Home", icon="🏠"),
     ],
     "Apps": [
-        st.Page("pages/quickPrep.py", title="Quick Prep: Data Cleaning", icon="🔧"),
-        st.Page("pages/quickGlance.py", title="Quick Glance: Data Analysis", icon="👀",),
+        st.Page("pages/quickPrep.py", title="Quick Prep: Data Cleaning", icon="🧹"),
+        st.Page("pages/quickGlance.py", title="Quick Glance: Data Analysis", icon="🔍",),
     ]
 }
 
