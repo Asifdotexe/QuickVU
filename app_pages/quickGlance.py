@@ -10,7 +10,7 @@ from quickvu import gemini
 
 sns.set_style('whitegrid')
 
-with open('pages/styles.css') as f:
+with open('app_pages/styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 st.markdown('<h1 class="main-header">🔍 Quick Glance: Data Analysis Tool</h1>', unsafe_allow_html=True)
@@ -58,19 +58,19 @@ if uploaded_file:
     # Convert integer columns to datetime
     df = data_processing.convert_int_to_datetime(df, selected_datetime)
 
-    st.sidebar.markdown('<h3 class="side-header">Preprocessing Options</h3>', unsafe_allow_html=True)
-    missing_value_option = st.sidebar.selectbox(
-        "How do you want to handle missing values?",
-        ("Fill with Mean", "Fill with Median", "Drop Missing Rows"),
-        help="Choose how to handle missing values in your dataset."
-    )
+    # st.sidebar.markdown('<h3 class="side-header">Preprocessing Options</h3>', unsafe_allow_html=True)
+    # missing_value_option = st.sidebar.selectbox(
+    #     "How do you want to handle missing values?",
+    #     ("Fill with Mean", "Fill with Median", "Drop Missing Rows"),
+    #     help="Choose how to handle missing values in your dataset."
+    # )
     
-    if missing_value_option == "Fill with Mean":
-        Config.FILL_MISSING_METHOD = 'mean'
-    elif missing_value_option == "Fill with Median":
-        Config.FILL_MISSING_METHOD = 'median'
-    else:
-        Config.FILL_MISSING_METHOD = 'drop'
+    # if missing_value_option == "Fill with Mean":
+    #     Config.FILL_MISSING_METHOD = 'mean'
+    # elif missing_value_option == "Fill with Median":
+    #     Config.FILL_MISSING_METHOD = 'median'
+    # else:
+    #     Config.FILL_MISSING_METHOD = 'drop'
 
     st.markdown('<h2 class="sub-header">Preprocessed Dataset</h2>', unsafe_allow_html=True)
     df_clean = data_processing.preprocess_data(df)
