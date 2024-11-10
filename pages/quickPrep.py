@@ -9,7 +9,7 @@ with open('pages/styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # Header
-st.markdown('<h1 class="main-header">Quick Prep: Data Cleaning Tool</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="main-header">🧹 Quick Prep: Data Cleaning Tool</h1>', unsafe_allow_html=True)
 st.markdown("""Quick Prep is a versatile data cleaning tool to help prepare your dataset for analysis. Simply upload your data, select the desired cleaning options, and download the prepared data.""")
 
 # Sidebar - File upload
