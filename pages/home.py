@@ -31,16 +31,25 @@ QuickVu provides several powerful features to streamline your data analysis work
 These tools are accessible through the navigation menu on the left side. Explore them by clicking on the options and see how QuickVu can help you streamline your analysis process.
 """)
 
+# Divider
 st.markdown("<div class='section-divider'></div>", unsafe_allow_html=True)
-# Section for About Me and GitHub profile
+
+# Navigation buttons with icons
+st.markdown("### Navigate to Tools")
+
+if st.button("🧹 Quick Prep - Data Cleaning"):
+    st.switch_page("pages/quickPrep.py")
+    
+if st.button("🔍 Quick Glance - Data Overview"):
+    st.switch_page("pages/quickGlance.py")
+
+# About Me section
 st.markdown("<h2 class='sub-header'>About Me</h2>", unsafe_allow_html=True)
 
-# Adding GitHub profile picture and personal info
 col1, col2 = st.columns([0.4, 3])
-
 with col1:
-    # Replace the URL with the link to your GitHub profile picture
-    st.image("https://avatars.githubusercontent.com/u/115421661?s=400&u=1a6a50ca45e66782ac203da4481f297c7441b206&v=4", caption="My GitHub Profile", width=120, output_format='png')
+    st.image("https://avatars.githubusercontent.com/u/115421661?s=400&u=1a6a50ca45e66782ac203da4481f297c7441b206&v=4", 
+             caption="My GitHub Profile", width=120, output_format='png')
 
 with col2:
     st.markdown("""
@@ -50,13 +59,11 @@ with col2:
     If you'd like to learn more about data analysis or this project, feel free to reach out—I'd be happy to help!
     """)
 
-# Additional section or footer if necessary
-
+# Footer message
 st.markdown("""
-    For any feedback or inquiries, feel free to reach out via my GitHub or email.  
-    Happy analyzing!
+For any feedback or inquiries, feel free to reach out via my GitHub or email.  
+Happy analyzing!
 """)
 
-# Footer
-# st.sidebar.write("---")
+# Sidebar footer
 st.sidebar.write("Project by `Asif Sayyed`")

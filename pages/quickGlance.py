@@ -13,7 +13,7 @@ sns.set_style('whitegrid')
 with open('pages/styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-st.markdown('<h1 class="main-header">Quick Glance: Data Analysis Tool</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="main-header">🔍 Quick Glance: Data Analysis Tool</h1>', unsafe_allow_html=True)
 st.markdown("""
 Quick Glance is a data analysis tool that provides summary statistics, visualizes correlations, and generates quick plots to give you a better understanding of your data.
 """)
