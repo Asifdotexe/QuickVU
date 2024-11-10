@@ -38,10 +38,10 @@ st.markdown("<div class='section-divider'></div>", unsafe_allow_html=True)
 st.markdown("### Navigate to Tools")
 
 if st.button("🧹 Quick Prep - Data Cleaning"):
-    st.switch_page("pages/quickPrep.py")
+    st.switch_page("app_pages/quickPrep.py")
     
 if st.button("🔍 Quick Glance - Data Overview"):
-    st.switch_page("pages/quickGlance.py")
+    st.switch_page("app_pages/quickGlance.py")
 
 # About Me section
 st.markdown("<h2 class='sub-header'>About Me</h2>", unsafe_allow_html=True)
