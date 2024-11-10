@@ -6,7 +6,7 @@ st.set_page_config(page_title="Home - QuickVu", layout="wide")
 with open('app_pages/styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-st.image('./dataset/logo-png.png')
+st.image('./dataset/logo-png.png', width=500)
 
 # Main header for the homepage
 st.markdown("<h1 class='main-header'>Welcome to QuickVU!</h1>", unsafe_allow_html=True)
@@ -31,8 +31,6 @@ QuickVu provides several powerful features to streamline your data analysis work
 These tools are accessible through the navigation menu on the left side. Explore them by clicking on the options and see how QuickVu can help you streamline your analysis process.
 """)
 
-# Divider
-st.markdown("<div class='section-divider'></div>", unsafe_allow_html=True)
 
 # Navigation buttons with icons
 st.markdown("### Navigate to Tools")
@@ -43,8 +41,11 @@ if st.button("🧹 Quick Prep - Data Cleaning"):
 if st.button("🔍 Quick Glance - Data Overview"):
     st.switch_page("app_pages/quickGlance.py")
 
+# Divider
+st.markdown("<div class='section-divider'></div>", unsafe_allow_html=True)
+
 # About Me section
-st.markdown("<h2 class='sub-header'>About Me</h2>", unsafe_allow_html=True)
+st.markdown("<h2 class='sub-header'>🤵🏻 About Me:</h2>", unsafe_allow_html=True)
 
 col1, col2 = st.columns([0.4, 3])
 with col1:
@@ -58,6 +59,8 @@ with col2:
 
     If you'd like to learn more about data analysis or this project, feel free to reach out—I'd be happy to help!
     """)
+    
+st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
 # Footer message
 st.markdown("""
