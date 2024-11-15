@@ -13,7 +13,7 @@ st.markdown("<h1 class='main-header'>Welcome to QuickVU!</h1>", unsafe_allow_htm
 
 # Description of the app
 st.markdown("""
-Quick VU (Quick Visual Understanding) is an easy-to-use tool for data preparation, analysis, and visualization. It helps you clean, explore, and visualize your data without coding.
+QuickVU (Quick Visual Understanding) is an easy-to-use tool for data preparation, analysis, and visualization. It helps you clean, explore, and visualize your data without coding.
 
 Just upload your data, choose your analysis, and Quick VU will guide you through the process.
 
@@ -23,7 +23,7 @@ Use the navigation on the left to explore the tools, or start here:
 # Explanation of features and tools
 st.markdown("""
 ### Tools & Features
-QuickVu provides several powerful features to streamline your data analysis workflow:
+QuickVU provides several powerful features to streamline your data analysis workflow:
 
 - **Data Preparation via QuickPrep**: Easily clean and preprocess your data before analysis.
 - **Data Analysis via QuickGlance**: Use built-in analytics tools to perform various statistical analyses on your datasets.

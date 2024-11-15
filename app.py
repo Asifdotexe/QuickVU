@@ -8,7 +8,10 @@ pages = {
     "Apps": [
         st.Page("app_pages/quickPrep.py", title="Quick Prep: Data Cleaning", icon=":material/mop:"),
         st.Page("app_pages/quickGlance.py", title="Quick Glance: Data Analysis", icon=":material/search:",),
-    ]
+    ],
+    "Others": {
+        st.Page("app_pages/quickFeedback.py", title="Feedback", icon=":material/rate_review:")
+    }
 }
 
 # Setup navigation in the sidebar
