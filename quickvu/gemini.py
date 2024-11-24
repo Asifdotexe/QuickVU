@@ -37,3 +37,17 @@ def explain_correlation_matrix(corr_matrix):
         return response.text
     except Exception as e:
         return f"Error: {str(e)}"
+    
+def which_model(usecase: str):
+    """Suggests three machine learning models tailored to the given use case.
+    
+    :param usecase: A string describing the specific use case for which machine learning models need to be suggested
+    """
+    prompt = f"""Suggest me 3 best machine learning models for the following usecase: \n
+    {usecase} \n just return the name of the model and why is it better in the following situation?
+    do not return any boilerplate text, just the text and reason """
+    try:
+        response = gemini_model.generate_content(prompt)
+        return response.text
+    except Exception as e:
+        return f"Error: {str(e)}"
