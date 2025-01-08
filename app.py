@@ -6,12 +6,17 @@ pages = {
         st.Page("app_pages/home.py", title="Home", icon=":material/home:"),
     ],
     "Apps": [
-        st.Page("app_pages/quickPrep.py", title="Quick Prep: Data Cleaning", icon=":material/mop:"),
-        st.Page("app_pages/quickGlance.py", title="Quick Glance: Data Analysis", icon=":material/search:",),
-        st.Page("app_pages/quickModelSelection.py", title="Quick Select: Model Selection", icon=":material/search:",),
+        st.Page("app_pages/quickPrep.py", title="Quick Prep: Data Cleaning",
+                icon=":material/mop:"),
+        st.Page("app_pages/quickGlance.py", title="Quick Glance: Data Analysis",
+                icon=":material/search:",),
+        st.Page("app_pages/quickModelSelection.py",
+                title="Quick Select: Model Selection",
+                icon=":material/search:",),
     ],
     "Others": {
-        st.Page("app_pages/quickFeedback.py", title="Feedback", icon=":material/rate_review:")
+        st.Page("app_pages/quickFeedback.py", title="Feedback",
+                icon=":material/rate_review:")
     }
 }
 
