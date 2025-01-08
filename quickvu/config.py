@@ -1,7 +1,3 @@
-import os
-from dotenv import load_dotenv
-import google.generativeai as genai
-
 class Config:
     # Constants for data columns
     CUSTOMER_ID = 'customer_id'
