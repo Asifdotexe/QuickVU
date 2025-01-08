@@ -1,6 +1,10 @@
+"""
+This module is for collecting the user feedback via a Google form.
+"""
+
 import streamlit as st
 
-st.title("Your feedback is valueable to me! 😊")
+st.title("Your feedback is valuable to me! 😊")
 
 st.write(
     """
