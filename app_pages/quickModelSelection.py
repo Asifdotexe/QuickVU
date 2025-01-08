@@ -15,11 +15,11 @@ understanding of your data.
 
 st.sidebar.image('./dataset/logo-png.png', use_container_width=True)
 
-usecase = st.text_area("Describe your use case here:")
+because = st.text_area("Describe your use case here:")
 
 if st.button("Show suggestions"):
-    if usecase.strip():
-        suggestions = gemini.which_model(usecase)
+    if because.strip():
+        suggestions = gemini.which_model(because)
         
         if isinstance(suggestions, str) and suggestions.startswith("Error"):
             st.error(suggestions)
