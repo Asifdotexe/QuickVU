@@ -5,7 +5,8 @@ st.title("Your feedback is valueable to me! 😊")
 st.write(
     """
     Your feedback is very crucial to me!  
-    It helps me improve and tailor the app to your needs. Please take a moment to fill out our feedback form.
+    It helps me improve and tailor the app to your needs. 
+    Please take a moment to fill out our feedback form.
     """
 )
 
@@ -13,7 +14,8 @@ st.markdown("---")
 
 st.markdown(
     """
-    ### **[📝 Fill out our feedback form here!](https://forms.gle/xQ5Gq8zbY8xCpqDq8)**  
+    ### **[📝 Fill out our feedback form here!]
+    (https://forms.gle/xQ5Gq8zbY8xCpqDq8)**  
     """
 , unsafe_allow_html=True)
 
@@ -32,7 +34,8 @@ st.write(
 # Add a call-to-action message
 st.info(
     """
-    Your feedback will only take a few minutes to complete, and it will go a long way in helping us enhance your experience.  
+    Your feedback will only take a few minutes to complete, 
+    and it will go a long way in helping us enhance your experience.  
     Thank you for your time and support! 🌟
     """
 )
@@ -44,6 +47,7 @@ st.markdown("---")
 # Closing note
 st.write(
     """
-    If you have any immediate concerns or questions, feel free to reach out to us via [email](mailto:asifdotexe@gmail.com).
+    If you have any immediate concerns or questions, 
+    feel free to reach out to us via [email](mailto:asifdotexe@gmail.com).
     """
 )
