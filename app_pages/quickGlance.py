@@ -1,21 +1,26 @@
-import numpy as np
+"""
+This module is for running the Exploratory data analysis part of the
+application.
+"""
 import pandas as pd
 import seaborn as sns
 import streamlit as st
 import matplotlib.pyplot as plt
 
-from quickvu.config import Config
-from quickvu import data_processing, eda, visualization
 from quickvu import gemini
+from quickvu import data_processing, eda, visualization
 
+# setting the plotting palette style (personal preference)
 sns.set_style('whitegrid')
 
+# reading the styling CSS file to quickly format the markdown elements
 with open('app_pages/styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 st.markdown('<h1 class="main-header">🔍 Quick Glance: Data Analysis Tool</h1>',
             unsafe_allow_html=True)
 
+# displaying the application logo
 st.image('./dataset/quickGlanceDiagram.png')
 
 st.markdown("""
@@ -24,19 +29,24 @@ visualizes correlations,
 and generates quick plots to give you a better understanding of your data.
 """)
 
+# displaying the application logo in the navigation bar on the side
 st.sidebar.image('./dataset/logo-png.png', use_container_width=True)
 
 
 st.sidebar.markdown('<h3 class="side-header">Upload your Dataset</h3>',
                     unsafe_allow_html=True)
+# Input module that allows users to ingest their input data,
+# the input data should either be of CSV, Excel or JSON format.
 uploaded_file = st.sidebar.file_uploader("Choose a CSV, Excel, or JSON file",
                                          type=["csv", "xlsx", "xls", "json"],
                                          help="Upload your dataset in CSV, "
                                               "Excel, or JSON format for analysis.")
 
 if uploaded_file:
+    # defining an empty variable for dataframe to prevent warning or errors
+    df = None
     try:
-        # Read data based on file type
+        # Parses the data based on the extension type
         if uploaded_file.name.endswith('.csv'):
             df = pd.read_csv(uploaded_file)
         elif uploaded_file.name.endswith(('.xlsx', '.xls')):
@@ -47,16 +57,20 @@ if uploaded_file:
         # Display preview of the dataset
         st.markdown('<h2 class="sub-header">Dataset Preview</h2>',
                     unsafe_allow_html=True)
+        # displaying the top 10 rows of the ingested dataset
         st.write(df.head(10))
     
     except Exception as e:
         st.error(f"Error loading file: {e}")
-    
-    columns = df.columns.tolist()
-    column_types = df.dtypes
 
+    # storing all the column names in a python list
+    columns = df.columns.tolist()
+    # storing all the column data types in a python list
+    column_types = df.dtypes
+    # Storing all the numerical columns in a python list
     numerical_columns = df.select_dtypes(include=['float64', 'int64']
                                          ).columns.tolist()
+    # storing all the categorical columns in a python list
     categorical_columns = df.select_dtypes(include=['object', 'category']
                                            ).columns.tolist()
 
@@ -74,21 +88,6 @@ if uploaded_file:
     
     # Convert integer columns to datetime
     df = data_processing.convert_int_to_datetime(df, selected_datetime)
-
-    # st.sidebar.markdown('<h3 class="side-header">Preprocessing Options</h3>',
-    # unsafe_allow_html=True)
-    # missing_value_option = st.sidebar.selectbox(
-    #     "How do you want to handle missing values?",
-    #     ("Fill with Mean", "Fill with Median", "Drop Missing Rows"),
-    #     help="Choose how to handle missing values in your dataset."
-    # )
-    
-    # if missing_value_option == "Fill with Mean":
-    #     Config.FILL_MISSING_METHOD = 'mean'
-    # elif missing_value_option == "Fill with Median":
-    #     Config.FILL_MISSING_METHOD = 'median'
-    # else:
-    #     Config.FILL_MISSING_METHOD = 'drop'
 
     st.markdown('<h2 class="sub-header">Preprocessed Dataset</h2>',
                 unsafe_allow_html=True)
@@ -130,7 +129,7 @@ if uploaded_file:
             # Explanation Section
             with st.expander("Need Help Understanding the Correlation Matrix?"):
                 if st.button("Explain Correlation Matrix"):
-                    corr_matrix_str = correlation_matrix.to_string()  # Convert the correlation matrix to string
+                    corr_matrix_str = correlation_matrix.to_string()
                     with st.spinner("Generating explanation..."):
                         explanation = gemini.explain_correlation_matrix(corr_matrix_str)
                     st.markdown('<h2 class="sub-header">Explanation</h2>',
@@ -155,7 +154,7 @@ if uploaded_file:
         st.markdown('<h2 class="sub-header">Metrics by Category</h2>',
                     unsafe_allow_html=True)
         if selected_categorical and selected_numerical:
-            categ_col = st.sidebar.selectbox("Select Categorical Column",
+            category_col = st.sidebar.selectbox("Select Categorical Column",
                                              selected_categorical,
                                              key="Categorical Column",
                                              help="Select a categorical column "
@@ -165,7 +164,7 @@ if uploaded_file:
                                              key="Numerical Column",
                                              help="Select a numerical column "
                                                   "representing sales amounts.")
-            fig = visualization.plot_metrics_by_category(df_clean, categ_col,
+            fig = visualization.plot_metrics_by_category(df_clean, category_col,
                                                          numer_col)
             st.pyplot(fig)
         else:
