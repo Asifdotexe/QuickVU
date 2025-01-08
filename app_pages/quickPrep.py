@@ -1,7 +1,11 @@
+"""
+This module is for allowing the user to process or preprocess their data
+because performing exploratory data analysis
+"""
 import numpy as np
 import pandas as pd
 import streamlit as st
-import quickvu.prepare_data as DataPrepper
+import quickvu.prepare_data as data_prepper
 from quickvu import eda
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
@@ -29,6 +33,7 @@ uploaded_file = st.sidebar.file_uploader("Choose a CSV, Excel, or JSON file",
                                               "Excel, or JSON format for analysis.")
 
 if uploaded_file:
+    df = None
     try:
         # Read data based on file type
         if uploaded_file.name.endswith('.csv'):
@@ -58,7 +63,7 @@ if uploaded_file:
     if st.sidebar.checkbox("Standardize Column Names",
                            help="Standardizes column names to lower case and "
                                 "replaces spaces with underscores."):
-        df = DataPrepper.standardize_column_names(df)
+        df = data_prepper.standardize_column_names(df)
         st.session_state.df = df
 
     # Handle Missing Values
@@ -71,13 +76,13 @@ if uploaded_file:
                                                      "missing values in the dataset.")
 
     if missing_value_option == "Fill with Mean":
-        df = DataPrepper.handle_missing_values(df, method='mean')
+        df = data_prepper.handle_missing_values(df, method='mean')
         st.session_state.df = df
     elif missing_value_option == "Fill with Median":
-        df = DataPrepper.handle_missing_values(df, method='median')
+        df = data_prepper.handle_missing_values(df, method='median')
         st.session_state.df = df
     elif missing_value_option == "Drop Missing Rows":
-        df = DataPrepper.handle_missing_values(df)
+        df = data_prepper.handle_missing_values(df)
         st.session_state.df = df
 
     # Outlier Handling with Column Selection
@@ -93,12 +98,12 @@ if uploaded_file:
 
         if apply_outliers and outlier_columns:
             if outlier_method == "Z-score":
-                df = DataPrepper.detech_outliers(df, method='zscore',
-                                                 columns=outlier_columns)
+                df = data_prepper.detech_outliers(df, method='zscore',
+                                                  columns=outlier_columns)
                 st.session_state.df = df
             elif outlier_method == "IQR":
-                df = DataPrepper.detech_outliers(df, method='iqr',
-                                                 columns=outlier_columns)
+                df = data_prepper.detech_outliers(df, method='iqr',
+                                                  columns=outlier_columns)
                 st.session_state.df = df 
 
     # Data Scaling with Column Selection
@@ -120,7 +125,7 @@ if uploaded_file:
     # Drop Duplicate Rows
     if st.sidebar.checkbox("Drop Duplicate Rows",
                            help="Drop duplicate rows from the dataset."):
-        df = DataPrepper.remove_duplicates(df)
+        df = data_prepper.remove_duplicates(df)
         st.session_state.df = df 
     # Drop Columns
     if st.sidebar.checkbox("Drop Columns",
@@ -138,8 +143,8 @@ if uploaded_file:
         dtype_option = st.sidebar.selectbox("Select Data Type",
                                             ["int", "float", "str", "datetime"])
         if st.sidebar.button("Change Data Type"):
-            df = DataPrepper.convert_data_types(df,
-                                                {dtype_column: dtype_option})
+            df = data_prepper.convert_data_types(df,
+                                                 {dtype_column: dtype_option})
             st.session_state.df = df 
 
     # Row Filtering
