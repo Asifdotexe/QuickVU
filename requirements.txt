@@ -1,11 +1,11 @@
-python-dotenv
-numpy
-pandas
-seaborn
+python-dotenv==1.0.1
+numpy==2.2.2
+pandas==2.2.3
+seaborn==0.13.2
 streamlit==1.40.0
-matplotlib
-scipy
-scikit-learn
+matplotlib==3.10.0
+scipy==1.15.1
+scikit-learn==1.6.1
 gitdb==4.0.11
 GitPython==3.1.43
 google-ai-generativelanguage==0.6.10
@@ -20,3 +20,7 @@ grpcio-status==1.67.1
 httplib2==0.22.0
 idna==3.10
 openpyxl
+protobuf==5.29.3
+setuptools==75.8.0
+transformers==4.48.2
+torch==2.6.0

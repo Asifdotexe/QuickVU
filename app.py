@@ -15,6 +15,9 @@ pages = {
         st.Page("app_pages/quickGlance.py",
                 title="Quick Glance: Data Analysis",
                 icon=":material/search:",),
+        st.Page("app_pages/quickChat.py",
+                title="Quick Chat: Chat with data",
+                icon=":material/chat:", ),
     ],
 
     "Tools": [
