@@ -13,19 +13,22 @@ sns.set_style('whitegrid')
 with open('app_pages/styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-st.markdown('<h1 class="main-header">🔍 Quick Glance: Data Analysis Tool</h1>', unsafe_allow_html=True)
-
-st.image('./dataset/quick-glance-diagram.png')
-
+st.markdown('<h1 class="main-header">🔍 Quick Glance: Data Analysis Tool</h1>',
+            unsafe_allow_html=True)
 st.markdown("""
-Quick Glance is a data analysis tool that provides summary statistics, visualizes correlations, and generates quick plots to give you a better understanding of your data.
+Quick Glance is a data analysis tool that provides summary statistics, 
+visualizes correlations, and generates quick plots to give you a better 
+understanding of your data.
 """)
 
-st.sidebar.image('./dataset/logo-transparent.png', use_container_width=True)
+st.image('./artifacts/quick-glance-workflow.png', width=700)
+
+
+st.sidebar.image('./artifacts/logo-transparent.png', use_container_width=True)
 
 
 st.sidebar.markdown('<h3 class="side-header">Upload your Dataset</h3>', unsafe_allow_html=True)
-uploaded_file = st.sidebar.file_uploader("Choose a CSV, Excel, or JSON file", type=["csv", "xlsx", "xls", "json"], help="Upload your dataset in CSV, Excel, or JSON format for analysis.")
+uploaded_file = st.sidebar.file_uploader("Choose a CSV, Excel, or JSON file", type=["csv", "xlsx", "xls", "json"], help="Upload your artifacts in CSV, Excel, or JSON format for analysis.")
 
 if uploaded_file:
     try:
@@ -37,7 +40,7 @@ if uploaded_file:
         elif uploaded_file.name.endswith('.json'):
             df = pd.read_json(uploaded_file)
         
-        # Display preview of the dataset
+        # Display preview of the artifacts
         st.markdown('<h2 class="sub-header">Dataset Preview</h2>', unsafe_allow_html=True)
         st.write(df.head(10))
     
@@ -62,7 +65,7 @@ if uploaded_file:
     # missing_value_option = st.sidebar.selectbox(
     #     "How do you want to handle missing values?",
     #     ("Fill with Mean", "Fill with Median", "Drop Missing Rows"),
-    #     help="Choose how to handle missing values in your dataset."
+    #     help="Choose how to handle missing values in your artifacts."
     # )
     
     # if missing_value_option == "Fill with Mean":
@@ -148,7 +151,7 @@ if uploaded_file:
             else:
                 st.warning("Please ensure both a valid date column and a sales amount column are selected.")
         else:
-            st.warning("Please ensure your dataset contains both Date/Time and Numerical columns for this analysis.")
+            st.warning("Please ensure your artifacts contains both Date/Time and Numerical columns for this analysis.")
             
 else:
     st.markdown('<p class="instructions">Please upload a CSV file to start data analysis. </br> You can drop the file at the data uploader located on the navigation side bar. </p>', unsafe_allow_html=True)

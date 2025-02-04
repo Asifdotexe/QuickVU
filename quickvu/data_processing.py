@@ -8,7 +8,7 @@ def preprocess_data(
     """
     Cleans and preprocesses the input dataframe based on column mappings.
     
-    :param df: The input dataset.
+    :param df: The input artifacts.
     :param column_mapping: A dictionary for custom column mappings.
 
     :returns: Cleaned dataframe.

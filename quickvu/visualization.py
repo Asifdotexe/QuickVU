@@ -10,7 +10,7 @@ def plot_metrics_by_category(
     """
     Plots total metrics by category.
     
-    :param df: Input dataset.
+    :param df: Input artifacts.
     :param category_column: Column representing categorical values.
     :param numerical_column: Column representing numerical values.
     
@@ -45,7 +45,7 @@ def plot_distribution(
     """
     Plots customer demographics such as the number of purchases per customer.
     
-    :param df: Input dataset.
+    :param df: Input artifacts.
     :param customer_column: Column representing customers.
     :param sales_column: Column representing sales amount.
     

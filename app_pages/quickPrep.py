@@ -1,7 +1,23 @@
+"""
+This is the module responsible for performing the data processing bit of the
+product
+
+Show Summary Statistics
+Standardize Column Names
+Handle Missing Values
+Detect and Handle Outliers
+Scale Data
+Drop Duplicate Rows
+Drop Columns
+Change Data Type
+Filter Rows
+Download Cleaned Data
+"""
+
 import numpy as np
 import pandas as pd
 import streamlit as st
-import quickvu.prepare_data as DataPrepper
+import quickvu.prepare_data as data_prepper
 from quickvu import eda
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
@@ -9,17 +25,20 @@ with open('app_pages/styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # Header
-st.markdown('<h1 class="main-header">🧹 Quick Prep: Data Cleaning Tool</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="main-header">🧹 Quick Prep: Data Cleaning Tool</h1>',
+            unsafe_allow_html=True)
+st.markdown("""Quick Prep is a versatile data cleaning tool to help prepare 
+your artifacts for analysis. Simply upload your data, select the desired 
+cleaning options, and download the prepared data.""")
 
-st.image('./dataset/quick-prep-process.png')
+st.image('./artifacts/quick-prep-workflow.png', width=700)
 
-st.markdown("""Quick Prep is a versatile data cleaning tool to help prepare your dataset for analysis. Simply upload your data, select the desired cleaning options, and download the prepared data.""")
 
 # Sidebar - File upload
-st.sidebar.image('./dataset/logo-transparent.png', use_container_width=True)
+st.sidebar.image('./artifacts/logo-transparent.png', use_container_width=True)
 
 st.sidebar.markdown('<h3 class="side-header">Upload your Dataset</h3>', unsafe_allow_html=True)
-uploaded_file = st.sidebar.file_uploader("Choose a CSV, Excel, or JSON file", type=["csv", "xlsx", "xls", "json"], help="Upload your dataset in CSV, Excel, or JSON format for analysis.")
+uploaded_file = st.sidebar.file_uploader("Choose a CSV, Excel, or JSON file", type=["csv", "xlsx", "xls", "json"], help="Upload your artifacts in CSV, Excel, or JSON format for analysis.")
 
 if uploaded_file:
     try:
@@ -31,7 +50,7 @@ if uploaded_file:
         elif uploaded_file.name.endswith('.json'):
             df = pd.read_json(uploaded_file)
         
-        # Display preview of the dataset
+        # Display preview of the artifacts
         st.markdown('<h2 class="sub-header">Dataset Preview</h2>', unsafe_allow_html=True)
         st.write(df.head(10))
     
@@ -46,35 +65,35 @@ if uploaded_file:
 
     # Standardize Column Names
     if st.sidebar.checkbox("Standardize Column Names", help="Standardizes column names to lower case and replaces spaces with underscores."):
-        df = DataPrepper.standardize_column_names(df)
+        df = data_prepper.standardize_column_names(df)
         st.session_state.df = df
 
     # Handle Missing Values
     missing_value_option = st.sidebar.selectbox("Handle Missing Values", 
                                                 ("None", "Fill with Mean", "Fill with Median", "Drop Missing Rows"),
-                                                help="Choose how to handle missing values in the dataset.")
+                                                help="Choose how to handle missing values in the artifacts.")
     if missing_value_option == "Fill with Mean":
-        df = DataPrepper.handle_missing_values(df, method='mean')
+        df = data_prepper.handle_missing_values(df, method='mean')
         st.session_state.df = df
     elif missing_value_option == "Fill with Median":
-        df = DataPrepper.handle_missing_values(df, method='median')
+        df = data_prepper.handle_missing_values(df, method='median')
         st.session_state.df = df
     elif missing_value_option == "Drop Missing Rows":
-        df = DataPrepper.handle_missing_values(df)
+        df = data_prepper.handle_missing_values(df)
         st.session_state.df = df
 
     # Outlier Handling with Column Selection
-    if st.sidebar.checkbox("Detect and Handle Outliers", help="Select columns and choose a method to detect and handle outliers in the dataset."):
+    if st.sidebar.checkbox("Detect and Handle Outliers", help="Select columns and choose a method to detect and handle outliers in the artifacts."):
         outlier_columns = st.sidebar.multiselect("Select Columns for Outlier Treatment", df.select_dtypes(include=[np.number]).columns)
         outlier_method = st.sidebar.radio("Outlier Detection Method", ("Z-score", "IQR"))
         apply_outliers = st.sidebar.button("Apply Outlier Treatment", help="Marks outliers as TRUE, non-outliers as FALSE.")
 
         if apply_outliers and outlier_columns:
             if outlier_method == "Z-score":
-                df = DataPrepper.detech_outliers(df, method='zscore', columns=outlier_columns)
+                df = data_prepper.detect_outliers(df, method='zscore', columns=outlier_columns)
                 st.session_state.df = df
             elif outlier_method == "IQR":
-                df = DataPrepper.detech_outliers(df, method='iqr', columns=outlier_columns)
+                df = data_prepper.detect_outliers(df, method='iqr', columns=outlier_columns)
                 st.session_state.df = df 
 
     # Data Scaling with Column Selection
@@ -90,11 +109,11 @@ if uploaded_file:
             st.session_state.df = df 
 
     # Drop Duplicate Rows
-    if st.sidebar.checkbox("Drop Duplicate Rows", help="Drop duplicate rows from the dataset."):
-        df = DataPrepper.remove_duplicates(df)
+    if st.sidebar.checkbox("Drop Duplicate Rows", help="Drop duplicate rows from the artifacts."):
+        df = data_prepper.remove_duplicates(df)
         st.session_state.df = df 
     # Drop Columns
-    if st.sidebar.checkbox("Drop Columns", help="Select and remove a column from the dataset."):
+    if st.sidebar.checkbox("Drop Columns", help="Select and remove a column from the artifacts."):
         column_to_drop = st.sidebar.selectbox("Select Column to Drop", df.columns)
         if st.sidebar.button("Drop Column"):
             df = df.drop(columns=[column_to_drop])
@@ -105,7 +124,7 @@ if uploaded_file:
         dtype_column = st.sidebar.selectbox("Select Column to Change Type", df.columns)
         dtype_option = st.sidebar.selectbox("Select Data Type", ["int", "float", "str", "datetime"])
         if st.sidebar.button("Change Data Type"):
-            df = DataPrepper.convert_data_types(df, {dtype_column: dtype_option})
+            df = data_prepper.convert_data_types(df, {dtype_column: dtype_option})
             st.session_state.df = df 
 
     # Row Filtering

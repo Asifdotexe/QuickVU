@@ -6,7 +6,7 @@ st.set_page_config(page_title="Home - QuickVu", layout="wide")
 with open('app_pages/styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-st.image('./dataset/logo-transparent.png', width=500)
+st.image('./artifacts/logo-transparent.png', width=500)
 
 # Main header for the homepage
 st.markdown("<h1 class='main-header'>Welcome to QuickVU!</h1>", unsafe_allow_html=True)
@@ -21,7 +21,7 @@ Use the navigation on the left to explore the tools, or start here:
 """)
 
 # Explanation of features and tools
-st.image('dataset/tools-and-features.png', width=500)
+st.image('artifacts/tools-and-features.png', width=500)
 st.markdown("""  
 These tools are accessible through the navigation menu on the left side. Explore them by clicking on the options and see how QuickVu can help you streamline your analysis process.
 """)

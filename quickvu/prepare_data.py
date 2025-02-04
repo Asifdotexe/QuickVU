@@ -24,7 +24,7 @@ def handle_missing_values(
         dataframe: pd.DataFrame, 
         method: str = "drop"
     ) -> pd.DataFrame:
-    """Handle missing values in the dataset based on the chosen method.
+    """Handle missing values in the artifacts based on the chosen method.
     
     :param dataframe: The Dataframe to handle missing values for.
     :type dataframe: pd.DataFrame
@@ -81,7 +81,7 @@ def convert_data_types(
             dataframe[column] = dataframe[column].astype(dtype)
     return dataframe
 
-def detech_outliers(
+def detect_outliers(
         dataframe: pd.DataFrame, 
         method: str = "iqr",
         threshold: float = 1.5,
@@ -104,7 +104,7 @@ def detech_outliers(
     :return: DataFrame with outliers flagged.
     :rtype: pd.DataFrame
     """
-    # Interquartile Range (IQR) is a statistical measure used to identify outliers in a dataset.
+    # Interquartile Range (IQR) is a statistical measure used to identify outliers in a artifacts.
     # It is the range between the 1st quartile (Q1) and the 3rd quartile (Q3), where:
     
     # - Q1 (the 1st quartile) is the value below which 25% of the data falls.
@@ -193,7 +193,7 @@ def remove_duplicates(dataframe: pd.DataFrame) -> pd.DataFrame:
 def scale_data(
         dataframe: pd.DataFrame,
         numerical_columns: list,
-        method: str = "standarize"
+        method: str = "standardize"
     ) -> pd.DataFrame:
     """Scale numerical data to a specified range or distribution.
     
@@ -213,7 +213,7 @@ def scale_data(
     elif method == "normalize":
         scaler = MinMaxScaler()
     else:
-        raise ValueError("Invalid method for scaling data. Choose 'standarize' or 'minmax'.")
+        raise ValueError("Invalid method for scaling data. Choose 'standardize' or 'minmax'.")
     
     dataframe[numerical_columns] = scaler.fit_transform(dataframe[numerical_columns])
     return dataframe

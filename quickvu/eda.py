@@ -7,7 +7,7 @@ def generate_summary_statistics(df: pd.DataFrame):
     """
     Generates and returns summary statistics for the dataframe.
     
-    :param df: Input dataset.
+    :param df: Input artifacts.
     
     :returns: Summary statistics.
     :rtype: pd.DataFrame
@@ -18,7 +18,7 @@ def generate_object_summary_statistics(df: pd.DataFrame):
     """
     Generates and returns summary statistics for the dataframe.
     
-    :param df: Input dataset.
+    :param df: Input artifacts.
     
     :returns: Summary statistics.
     :rtype: pd.DataFrame
@@ -33,7 +33,7 @@ def plot_sales_trends(
     """
     Plots sales trends over time.
 
-    :param df: Input dataset.
+    :param df: Input artifacts.
     :param date_column: The column representing dates.
     :param sales_column: The column representing sales amount.
     
@@ -49,9 +49,9 @@ def plot_sales_trends(
 
 def plot_correlation_matrix(df: pd.DataFrame):
     """
-    Plots a correlation matrix of the dataset.
+    Plots a correlation matrix of the artifacts.
     
-    :param df: Input dataset.
+    :param df: Input artifacts.
     
     :returns: Matplotlib figure object
     """

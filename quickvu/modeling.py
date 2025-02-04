@@ -12,7 +12,7 @@ def build_sales_forecast_model(
     """
     Builds and evaluates a simple regression model to forecast sales.
 
-    :param df: Input dataset.
+    :param df: Input artifacts.
     :param feature_columns: List of columns to use as features.
     :param target_column: Column to predict (target variable).
     
