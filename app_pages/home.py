@@ -6,7 +6,7 @@ st.set_page_config(page_title="Home - QuickVu", layout="wide")
 with open('app_pages/styles.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-st.image('./dataset/logo-png.png', width=500)
+st.image('./dataset/logo-transparent.png', width=500)
 
 # Main header for the homepage
 st.markdown("<h1 class='main-header'>Welcome to QuickVU!</h1>", unsafe_allow_html=True)

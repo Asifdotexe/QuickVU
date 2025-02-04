@@ -11,12 +11,12 @@ with open('app_pages/styles.css') as f:
 # Header
 st.markdown('<h1 class="main-header">🧹 Quick Prep: Data Cleaning Tool</h1>', unsafe_allow_html=True)
 
-st.image('./dataset/quickPrepDiagram.png')
+st.image('./dataset/quick-prep-process.png')
 
 st.markdown("""Quick Prep is a versatile data cleaning tool to help prepare your dataset for analysis. Simply upload your data, select the desired cleaning options, and download the prepared data.""")
 
 # Sidebar - File upload
-st.sidebar.image('./dataset/logo-png.png', use_container_width=True)
+st.sidebar.image('./dataset/logo-transparent.png', use_container_width=True)
 
 st.sidebar.markdown('<h3 class="side-header">Upload your Dataset</h3>', unsafe_allow_html=True)
 uploaded_file = st.sidebar.file_uploader("Choose a CSV, Excel, or JSON file", type=["csv", "xlsx", "xls", "json"], help="Upload your dataset in CSV, Excel, or JSON format for analysis.")

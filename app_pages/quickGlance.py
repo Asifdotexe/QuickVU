@@ -15,13 +15,13 @@ with open('app_pages/styles.css') as f:
 
 st.markdown('<h1 class="main-header">🔍 Quick Glance: Data Analysis Tool</h1>', unsafe_allow_html=True)
 
-st.image('./dataset/quickGlanceDiagram.png')
+st.image('./dataset/quick-glance-diagram.png')
 
 st.markdown("""
 Quick Glance is a data analysis tool that provides summary statistics, visualizes correlations, and generates quick plots to give you a better understanding of your data.
 """)
 
-st.sidebar.image('./dataset/logo-png.png', use_container_width=True)
+st.sidebar.image('./dataset/logo-transparent.png', use_container_width=True)
 
 
 st.sidebar.markdown('<h3 class="side-header">Upload your Dataset</h3>', unsafe_allow_html=True)
