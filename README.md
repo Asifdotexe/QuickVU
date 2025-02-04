@@ -33,25 +33,31 @@ Just upload your data, choose your analysis, and Quick VU will guide you through
     conda activate quickvu
     ```
 
-2. **Install Dependencies**
+3. **Install Dependencies**
     Ensure you have Python installed. Then, install the required packages:
     ```bash
     pip install -r requirements.txt
     ```
 
-3. **Install Google API SDK**
+4. **Install Google API SDK**
     The Python SDK for the Gemini API is contained in the google-generativeai package. Install the dependency using pip:
     ```bash
     pip install -q -U google-generativeai
     ```
+   
+5. **Define the API key**
+   Create a `.env` file and add a GEMINI API Key, for more information check: https://ai.google.dev/gemini-api/docs
+   ```bash
+   GEMINI_API_KEY=add-your-api-key-here
+    ```
 
-4. **Run the Application**
+6. **Run the Application**
     Start the Streamlit app:
     ```bash
     streamlit run app.py
     ```
 
-5. **Use Quick VU**
+7. **Use Quick VU**
     - Open the provided local URL in your browser.
     - Upload your CSV dataset and start exploring your data! </br>
       OR

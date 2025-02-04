@@ -12,7 +12,7 @@ def configure_gemini():
     # Check if API key is loaded
     api_key = os.getenv('GEMINI_API_KEY')
     if api_key is None:
-        raise ValueError("API_KEY not found! Please check your .env file.")
+        raise ValueError("GEMINI_API_KEY not found! Please check your .env file.")
     
     # Configure and return Gemini model
     genai.configure(api_key=api_key)
