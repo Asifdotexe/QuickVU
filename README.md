@@ -22,12 +22,12 @@ Just upload your data, choose your analysis, and Quick VU will guide you through
 
 1. **Clone the Repository**
     ```bash
-    git clone https://github.com/yourusername/quick-vu.git
-    cd quick-vu
+    git clone https://github.com/Asifdotexe/QuickVU.git
+    cd QuickVU
     ```
 
-2. **Create a conda envirioment**
-    Assuming you have ananconda installed on your system
+2. **Create a conda environment**
+    Assuming you have anaconda installed on your system
     ```bash
     conda create -name quickvu python=3.12
     conda activate quickvu
