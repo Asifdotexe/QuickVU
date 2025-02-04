@@ -31,3 +31,15 @@ def read_file(uploaded_file, file_type):
         return pd.read_parquet(uploaded_file)
     else:
         return None
+
+def get_conversion_options(file_type: str):
+    """
+    This function figures out the compatible datatypes we can convert it in
+    """
+    options = {
+        "csv": ["json", "xlsx", "parquet"],
+        "xlsx": ["csv", "json", "parquet"],
+        "json": ["csv", "xlsx"],
+        "parquet": ["csv", "xlsx"]
+    }
+    return options.get(file_type, [])
