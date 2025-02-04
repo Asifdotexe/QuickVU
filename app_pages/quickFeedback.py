@@ -1,6 +1,10 @@
+"""
+This is the code for the streamlit UI that contains the feedback form
+"""
+
 import streamlit as st
 
-st.title("Your feedback is valueable to me! 😊")
+st.title("Your feedback is valuable to me! 😊")
 
 st.write(
     """
