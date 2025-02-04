@@ -21,13 +21,8 @@ Use the navigation on the left to explore the tools, or start here:
 """)
 
 # Explanation of features and tools
-st.markdown("""
-### Tools & Features
-QuickVU provides several powerful features to streamline your data analysis workflow:
-
-- **Data Preparation via QuickPrep**: Easily clean and preprocess your data before analysis.
-- **Data Analysis via QuickGlance**: Use built-in analytics tools to perform various statistical analyses on your datasets.
-  
+st.image('dataset/tools-and-features.png', width=500)
+st.markdown("""  
 These tools are accessible through the navigation menu on the left side. Explore them by clicking on the options and see how QuickVu can help you streamline your analysis process.
 """)
 
